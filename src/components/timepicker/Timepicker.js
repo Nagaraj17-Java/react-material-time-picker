@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react";
-import './timePicker.scss'
+import './timepicker.scss'
 import {Modal} from "../modal/Modal.js";
-import {ReactComponent as ClockIcon} from "../../scss/icons/clock.svg";
-import {ReactComponent as KeyBoardIcon} from "../../scss/icons/keyboard.svg";
+import {ReactComponent as ClockIcon} from "./clock.svg";
+import {ReactComponent as KeyBoardIcon} from "./keyboard.svg";
 import DigitalClock from "../digital-clock/Digital-clock.js";
 export default function TimePicker( props ) {
 
