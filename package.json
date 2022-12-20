@@ -1,6 +1,23 @@
 {
-  "name": "anghezi",
-  "version": "0.1.0",
+  "name": "react-material-time-picker",
+  "version": "1.0.0",
+  "description": "TimePicker is a user interface component that allows the user to easily select a specific time. It provides an analog clock interface that is easy to use and intuitive. TimePicker can be easily integrated into other user interface components, making it a perfect choice for applications that require the user to select a time.",
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ztanha/react-material-time-picker.git"
+  },
+  "keywords": [
+    "materialv3",
+    "anlogclock",
+    "timepicker"
+  ],
+  "author": "Zahra Tanha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ztanha/react-material-time-picker/issues"
+  },
+  "homepage": "https://github.com/Ztanha/react-material-time-picker#readme",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
