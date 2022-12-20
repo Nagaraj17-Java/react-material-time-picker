@@ -1,70 +1,98 @@
-# Getting Started with Create React App
+# TimePicker
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+TimePicker is a user interface component that allows the user to easily select a specific time. It provides an analog clock interface that is easy to use and intuitive. TimePicker can be easily integrated into other user interface components, making it a perfect choice for applications that require the user to select a time.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- The user can enter the number either using the keyboard or using the analog clock.
+- The clock React component is responsive and works well on different devices and screen sizes. The clock adjusts its layout and content for the best user experience on different devices and screen sizes.
+- The clock's appearance is based on Material design v3.
+- In the "minutes" mode, the numbers on the clock, change to minutes numbers (0 to 60).
+- The user can pick a time by either clicking on a number or dragging the clock hand.
+- When the user clicks on a number the clock hand is designed to smoothly move towards it, and uses a function named “shortestPath” to find the shortest path. ( moves clockwise or counterclockwise ).
+- When the user releases the clock hand after dragging it to select a time, it will snap to the nearest number using a function named “getTheClosestDigit”.
 
-### `npm start`
+## Algorithms
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+To move the clock hand easily back and forward among the numbers, the analog clock component uses a class named Clock which implements a circular linked-list.
+The algorithm used for finding the closest digit to where the user has released the clock hand is as follows:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+```javascript
+const unit = Math.PI/6;
+const numberOfUnits = Math.round( angel / unit );
+return ( numberOfUnits < -3 ? 15 + numberOfUnits : numberOfUnits + 3 );
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The algorithm to find the shortest path is :
 
-### `npm run build`
+```javascript
+if( ( difference > 0 && difference < 6 ) || 12 - start + dest <= 6) {
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+distance = difference > 0 ? difference : 12 - start + dest;
+path = clock.goClockwise( start, distance )
+} else {
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+distance = Math.abs (dest - start) >= 6 ? 12 - dest+ start : start - dest;
+path = clock.goCounterClockwise( start, distance )
+}
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## Installation
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+To install TimePicker, run the following command:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Usage
 
-## Learn More
+To use TimePicker in your React application, import the TimePicker component and use it in your JSX code:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+import TimePicker from 'material-timepicker';
 
-### Code Splitting
+Once you have imported the component, you can use it in your app as follows:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
+The "TimePicker" component needs the following:
+- A function for applying changes, which uses the useState hook to update the time
+- A function for hiding the modal from the page, called handleClose
+- A title that will appear at the top of the modal
+- One or more buttons that will be placed at the bottom of the modal.
+  For example:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```jsx
+const App = () => {
+    return (
+        <TimePicker setTime={ setTime }
+                    time={ time }
+                    handleClose={ modalClose }
+                    title={ 'From' }
+                    buttons={<>
+                        <Button type={'text'} onClick={ handleModalBack }>
+                            Back
+                        </Button>
+                        <Button type={'text'} onClick={ handleModalSave }>
+                            Save
+                        </Button>
+                    </>}
+    
+        />
+    );
+};
+```
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Props
 
-### Advanced Configuration
+TimePicker has the following props:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- `title`: The title that will be displayed at the top of the TimePicker modal.
+- `setTime`: A callback function that will be called whenever the selected time is changed. The callback function will receive the new time as its only argument.
+- `time`: The variable which keeps the time
+- `handleClose`: A function for hiding the modal from the page
+- `buttons`: One or more buttons that will be placed at the bottom of the modal.
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Programming Paradigms
+This program is designed based on objective-oriented programming, with classes and objects representing the various components of our system, and uses some concepts like inheritance and encapsulation 
