@@ -3,7 +3,7 @@ import './timePicker.scss'
 import {Modal} from "../modal/Modal.js";
 import {ReactComponent as ClockIcon} from "../../scss/icons/clock.svg";
 import {ReactComponent as KeyBoardIcon} from "../../scss/icons/keyboard.svg";
-
+import DigitalClock from "../digital-clock/Digital-clock.js";
 export default function TimePicker2( props ) {
 
     const [ time,setTime ]= useState();
@@ -30,6 +30,13 @@ export default function TimePicker2( props ) {
             <span className='title labels'>
                 { props.title || 'Enter time' }
             </span>
+            <DigitalClock mode={ mode }
+                          time={ time }
+                          onChange={ setTime }
+                          setMode={ setMode }
+                          dayMode={ dayMode }
+                          setDayMode={ setDayMode }
+            />
 
             <div className='footer'>
                 { clockDisplay === false
