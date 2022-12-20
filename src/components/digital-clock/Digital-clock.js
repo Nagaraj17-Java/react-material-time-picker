@@ -13,6 +13,46 @@ export default function DigitalClock( props ) {
     function handleTimeChange(){
 
     }
+    function handleTimeChange( e,mode ) {
+
+        const max_chars = 2;
+        const elementClasses = e.target.classList;
+        console.log('ss',Number(e.target.value.length))
+        const value = Number(e.target.value.length) > max_chars
+            ? parseInt(e.target.value.substr(0,max_chars))
+            : parseInt(e.target.value);
+
+        elementClasses.remove('warning-style');
+        setMsg('');
+
+        if( isNaN( value )) {
+
+            setMsg( 'Entered value can be only a number.');
+            elementClasses.add('warning-style');
+            return;
+        }
+        if( mode === 'hours') {
+
+            if( (dayMode === 'pm' && value > 24) || (dayMode === 'am' && value >12 )) {
+                elementClasses.add('warning-style');
+                setMsg(' Time value is not correct! ')
+                return;
+            }
+            hours.current = ( normalize( value ));
+            props.onChange(`${ hours.current }${ minutes.current }`)
+
+        } else {
+
+            if( value >= 60 ){
+
+                setMsg('Minutes cant be greater than 60!')
+                elementClasses.add('warning-style');
+                return;
+            }
+            minutes.current = ( normalize( value ) )
+            props.onChange(`${ hours.current }${ minutes.current }`)
+        }
+    }
 
     function handleDayModeChange() {
 
