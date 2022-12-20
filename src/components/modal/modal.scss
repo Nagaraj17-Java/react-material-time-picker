@@ -10,11 +10,9 @@
     width: 100%;
     height: 100%;
     background-color: $scrim;
-    z-index: z-index(global,modal);
   }
   #modal-container{
     position:fixed;
-    z-index: z-index(global,modal);
     background-color: $surface;
     border-radius: 28px;
     left: 50%;
