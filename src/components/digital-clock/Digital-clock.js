@@ -1,4 +1,4 @@
-import {Input} from "../input/Input2.js";
+import {Input} from "../input/Input.js";
 import './digital-clock.scss';
 import {useEffect, useRef, useState} from "react";
 import {decode,normalize} from "../../utilities.js";
@@ -14,9 +14,60 @@ export default function DigitalClock( props ) {
 
     }
     function handleTimeChange(e,mode) {
-        console.log(e.target.value)
+        const max_chars = 2;
+        const elementClasses = e.target.classList;
+        const value = Number(e.target.value.length) > max_chars
+            ? parseInt(e.target.value.substr(-max_chars))
+            : Number(e.target.value);
+
+        elementClasses.remove('warning-style');
+        setMsg('');
+        console.log(value)
+        if( isNaN( value) ) {
+
+            setMsg( 'Entered value can be only a number.');
+            elementClasses.add('warning-style');
+            // return;
+        }
+        if( mode === 'hours') {
+
+            if( (dayMode === 'pm' && value > 24) || (dayMode === 'am' && value >12 )) {
+                elementClasses.add('warning-style');
+                setMsg(' Time value is not correct! ')
+                return;
+            }
+            // hours.current = ( normalize( value ));
+            console.log(normalize( value ))
+            props.onChange(`${ value }${ minutes.current || '00' }`)
+
+        } else {
+
+            if (value >= 60) {
+
+                setMsg('Minutes cant be greater than 60!')
+                elementClasses.add('warning-style');
+                return;
+            }
+        //     minutes.current = ( normalize( value ) )
+        //     props.onChange(`${ hours.current }${ minutes.current }`)
+        }
     }
 
+    // function handleTimeChange( e,mode ) {
+    //
+    //     const max_chars = 2;
+    //     const elementClasses = e.target.classList;
+    //     console.log('ss',Number(e.target.value.length))
+    //     const value = Number(e.target.value.length) > max_chars
+    //         ? parseInt(e.target.value.substr(0,max_chars))
+    //         : parseInt(e.target.value);
+    //
+    //     elementClasses.remove('warning-style');
+    //     setMsg('');
+    //
+
+
+    // }
 
     function handleDayModeChange() {
 
@@ -43,12 +94,13 @@ export default function DigitalClock( props ) {
 
     },[ props.time ])
 
+    const inpVal = decode( props.time || 0).hour;
+    console.log('inpVal', inpVal);
 
     return (<><div id='digital-clock-component'>
             <div className= 'inps-container'>
-                <Input value={ decode( props.time || 0).hour }
+                <Input value={ inpVal }
                        onChange={ e => handleTimeChange( e,'hours' ) }
-                       onBlur={ value => checkValue( value ) }
                        onClick={ ()=> props.setMode( 'hours' )}
                        className={ props.className }
                        // max={ dayMode === 'pm' ? 24 : 12 }

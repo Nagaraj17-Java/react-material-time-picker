@@ -1,10 +1,9 @@
 function decode(time){
-    if(time === -1 )return 0;
-    if( time === 0 )return 0;
+    if(time === -1  ||  time === 0 ) return {hour: '00', minute: '00'};
     let t = time.toString();
     return {
-        hour : t.slice(0,2),
-        minute : t.slice(2)
+        hour: t.slice(0,2),
+        minute: t.slice(2)
     }
 }
 function normalize( time ) {
