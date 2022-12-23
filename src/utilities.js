@@ -1,7 +1,7 @@
 function decode(time){
     if(time === -1  ||  time === 0 ) return {hour: '00', minute: '00'};
     let t = time.toString();
-    return { //todo
+    return {
         hour: t.slice(0,2),
         minute: t.slice(2)
     }
