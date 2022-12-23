@@ -38,11 +38,14 @@ export default function TimePicker( props ) {
                           dayMode={ dayMode }
                           setDayMode={ setDayMode }
             />
-            <AnalogClock time={time}
+            { clockDisplay === true
+                ? <AnalogClock time={time}
                          dayMode={ dayMode }
                          onChange={ setTime }
                          mode={ mode }
-            />
+                />
+                : ''
+            }
             <div className='footer'>
                 { clockDisplay === false
                     ? <ClockIcon onClick={ ()=> setClockDisplay(true) }/>
