@@ -35,14 +35,15 @@ export default function DigitalClock( props ) {
             }
 
             const val = normalize( Math.min( parseInt(e.target.value), maxHour ) )
-            props.onChange(`${ val }${ decode( props.time || 0).minute }`)
+            props.onChange(`${ val }${ minutesVal }`)
 
         } else {
-            if (e.target.value >= 60) {
+            const maxMinutes = 59;
+            if (e.target.value > maxMinutes) {
                 setMsg('Minutes cant be greater than 60!')
                 elementClasses.add('warning-style');
             }
-            const maxMinutes = 59;
+
             const minutesVal = normalize( Math.min( parseInt(e.target.value), maxMinutes ) )
             props.onChange(`${ decode( props.time || 0).hour}${ minutesVal }`)
 
