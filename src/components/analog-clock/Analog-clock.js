@@ -251,7 +251,6 @@ export default function AnalogClock(props) {
                  className ='pointer'
                  id = 'pointer'
             />
-
         </div>)
 }
 

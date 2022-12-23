@@ -27,7 +27,7 @@ export default function DigitalClock( props ) {
         if( mode === 'hours') {
 
             const minutesVal = decode( props.time || 0).minute;
-            const maxHour = (dayMode === 'pm' ? 23 : minutesVal > 0 ? 11 : 12);
+            const maxHour = (dayMode === 'pm' ? 23 : 11);
 
             if ( e.target.value > maxHour ) {
                 setMsg(`Hours has to be less than ${ dayMode === 'pm' ? 24 : 12 } in ${ dayMode.toUpperCase() } mode.`)
