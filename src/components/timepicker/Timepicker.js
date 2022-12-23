@@ -4,9 +4,10 @@ import {Modal} from "../modal/Modal.js";
 import {ReactComponent as ClockIcon} from "./clock.svg";
 import {ReactComponent as KeyBoardIcon} from "./keyboard.svg";
 import DigitalClock from "../digital-clock/Digital-clock.js";
+import AnalogClock from "../analog-clock/Analog-clock.js";
 export default function TimePicker( props ) {
 
-    const [ time,setTime ]= useState();
+    const [ time,setTime ]= useState('0000');
     const [ mode,setMode ]= useState('hours');
     const [ clockDisplay,setClockDisplay ] = useState(false);
     const [ dayMode,setDayMode ]= useState('am');
@@ -37,7 +38,11 @@ export default function TimePicker( props ) {
                           dayMode={ dayMode }
                           setDayMode={ setDayMode }
             />
-
+            <AnalogClock time={time}
+                         dayMode={ dayMode }
+                         onChange={ setTime }
+                         mode={ mode }
+            />
             <div className='footer'>
                 { clockDisplay === false
                     ? <ClockIcon onClick={ ()=> setClockDisplay(true) }/>
