@@ -79,7 +79,9 @@ export default function DigitalClock( props ) {
                 </div>
             </div>
             :
-            <div className= 'inps-container'>
+            <div
+                style={{backgroundColor:props.primary}}
+                className= 'inps-container'>
                 <Input value={ decode( props.time || 0).minute }
                        onChange={ e => handleTimeChange( e,'minutes') }
                        onClick={ ()=>props.setMode( 'minutes' ) }
