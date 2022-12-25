@@ -1,5 +1,8 @@
+import {useTheme} from "../../ThemeContext.js";
 
 const Input = (props) => {
+    const [ colors,setTheme,setColors] = useTheme()
+    console.log(colors)
     return (
         <input value={ props.value }
                onChange={ props.onChange }
@@ -10,6 +13,9 @@ const Input = (props) => {
                className={ props.classes }
                type={ props.type || '' }
                placeholder={ props.placeholder || '' }
+               style={{ backgroundColor: colors.surfaceVariant,
+                        color: colors.onSurfaceVariant
+                }}
         />
     );
 };

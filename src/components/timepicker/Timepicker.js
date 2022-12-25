@@ -5,13 +5,22 @@ import {ReactComponent as ClockIcon} from "./clock.svg";
 import {ReactComponent as KeyBoardIcon} from "./keyboard.svg";
 import DigitalClock from "../digital-clock/Digital-clock.js";
 import AnalogClock from "../analog-clock/Analog-clock.js";
+import {ThemeProvider, useTheme} from "../../ThemeContext.js";
 
-function TimePicker( props ) {
+const TimePicker = props=>(<ThemeProvider><ActualTimePicker {...props} /></ThemeProvider>)
+
+function ActualTimePicker( props ) {
 
     const [ time,setTime ]= useState('0000');
     const [ mode,setMode ]= useState('hours');
     const [ clockDisplay,setClockDisplay ] = useState(false);
     const [ dayMode,setDayMode ]= useState('am');
+    const [ theme,setTheme,setColors] = useTheme()
+
+    useEffect(()=>{
+        if( typeof props.colors !== "undefined") setColors (props.colors)
+
+    },[props.colors])
 
     useEffect(()=>{
         if( typeof time !== 'undefined'){

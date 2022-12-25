@@ -29,7 +29,7 @@ function ThemeProvider(props){
         else throw new Error('Theme not found!')
     }
 
-    return <ThemeContext.Provider {...props} value={[theme,updateTheme,updateColors]}/>
+    return <ThemeContext.Provider {...props} value={[ theme,updateTheme,updateColors ]}/>
 }
 function useTheme() {
     const context = useContext(ThemeContext);
