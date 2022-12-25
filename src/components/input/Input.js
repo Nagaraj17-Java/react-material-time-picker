@@ -1,5 +1,6 @@
 import {useTheme} from "../../ThemeContext.js";
 import {useState} from "react";
+import './input.scss'
 
 
 const Input = (props) => {
