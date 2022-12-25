@@ -15,12 +15,17 @@ function ActualTimePicker( props ) {
     const [ mode,setMode ]= useState('hours');
     const [ clockDisplay,setClockDisplay ] = useState(false);
     const [ dayMode,setDayMode ]= useState('am');
-    const [ theme,setTheme,setColors] = useTheme()
+    const [ colors,setTheme,setColors] = useTheme()
 
+    console.log(colors)
     useEffect(()=>{
-        if( typeof props.colors !== "undefined") setColors (props.colors)
+        if( typeof props.colors !== "undefined"){
+            setColors (props.colors)
+            setTheme('light');
 
-    },[props.colors])
+        }
+
+    },[ props.colors ])
 
     useEffect(()=>{
         if( typeof time !== 'undefined'){
