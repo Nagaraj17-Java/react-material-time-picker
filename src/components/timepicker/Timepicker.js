@@ -6,7 +6,7 @@ import {ReactComponent as KeyBoardIcon} from "./keyboard.svg";
 import DigitalClock from "../digital-clock/Digital-clock.js";
 import AnalogClock from "../analog-clock/Analog-clock.js";
 
-export default function TimePicker( props ) {
+function TimePicker( props ) {
 
     const [ time,setTime ]= useState('0000');
     const [ mode,setMode ]= useState('hours');
@@ -26,34 +26,36 @@ export default function TimePicker( props ) {
     },[ props.defaultValue ])
 
     return (
-            <div className='time-picker-component'>
-                <Modal show={ props.show } hide={ props.hide }>
-                    <span className='title labels'>
-                        { props.title || 'Enter time' }
-                    </span>
-                    <DigitalClock mode={ mode }
-                                  time={ time }
-                                  onChange={ setTime }
-                                  setMode={ setMode }
-                                  dayMode={ dayMode }
-                                  setDayMode={ setDayMode }
-                    />
-                    { clockDisplay === true
-                        ? <AnalogClock time={time}
-                                 dayMode={ dayMode }
-                                 onChange={ setTime }
-                                 mode={ mode }
+            <div className='time-picker-component' >
+                    <Modal show={ props.show } hide={ props.hide }>
+                        <span className='title labels'>
+                            { props.title || 'Enter time' }
+                        </span>
+                        <DigitalClock mode={ mode }
+                                      time={ time }
+                                      onChange={ setTime }
+                                      setMode={ setMode }
+                                      dayMode={ dayMode }
+                                      setDayMode={ setDayMode }
                         />
-                        : ''
-                    }
-                    <div className='footer'>
-                        { clockDisplay === false
-                            ? <ClockIcon onClick={ ()=> setClockDisplay(true) }/>
-                            : <KeyBoardIcon onClick={ ()=> setClockDisplay(false)}/>
+                        { clockDisplay === true
+                            ? <AnalogClock time={time}
+                                     dayMode={ dayMode }
+                                     onChange={ setTime }
+                                     mode={ mode }
+                            />
+                            : ''
                         }
-                        { props.buttons }
-                    </div>
-                </Modal>
+                        <div className='footer'>
+                            { clockDisplay === false
+                                ? <ClockIcon onClick={ ()=> setClockDisplay(true) }/>
+                                : <KeyBoardIcon onClick={ ()=> setClockDisplay(false)}/>
+                            }
+                            { props.buttons }
+                        </div>
+                    </Modal>
             </div>
-        )
+    )
 }
+
+export default TimePicker;
