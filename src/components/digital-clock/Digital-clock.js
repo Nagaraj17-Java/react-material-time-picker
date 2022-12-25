@@ -2,10 +2,12 @@ import {Input} from "../input/Input.js";
 import './digital-clock.scss';
 import {useState} from "react";
 import {decode,normalize} from "../../utilities.js";
+import {useTheme} from "../../ThemeContext.js";
 
 export default function DigitalClock( props ) {
 
     const [ msg,setMsg ] = useState('');
+    const [ colors ] = useTheme();
     const dayMode = props.dayMode;
 
     function resetWarnings(e) {
@@ -70,7 +72,7 @@ export default function DigitalClock( props ) {
             <div className= 'inps-container'>
                 <Input value={ decode( props.time || 0).hour }
                        onChange={ e => handleTimeChange( e,'hours' ) }
-                       onClick={ ()=>props.setMode( 'hours' ) }
+                       onClick={ ()=> props.setMode( 'hours' ) }
                        className={ props.className }
                        onBlur={ resetWarnings }
                 />
@@ -84,7 +86,7 @@ export default function DigitalClock( props ) {
                 className= 'inps-container'>
                 <Input value={ decode( props.time || 0).minute }
                        onChange={ e => handleTimeChange( e,'minutes') }
-                       onClick={ ()=>props.setMode( 'minutes' ) }
+                       onClick={ ()=> props.setMode( 'minutes' ) }
                        className={ props.className }
                        onBlur={ resetWarnings }
                 />
@@ -92,22 +94,26 @@ export default function DigitalClock( props ) {
                     { props.label2 || 'Minutes' }
                 </div>
             </div>
-            <div className='switch'>
-                <div className={ props.dayMode === 'am'
-                    ? 'active up'
-                    : 'up'
-                }
+            <div className='switch'
+                 style={{
+                    border: `1px solid ${colors.outline}`
+                }}
+            >
+                <div style={{backgroundColor : props.dayMode === 'am'
+                        ? colors.tertiaryContainer
+                        : ''
+                    }}
+                    className='up'
                      onClick={ handleDayModeChange }
-                >
-                    AM
+                >AM
                 </div>
-                <div className={ props.dayMode === 'pm'
-                    ? 'active down'
-                    : 'down'
-                }
+                <div style={{backgroundColor : props.dayMode === 'pm'
+                        ? colors.tertiaryContainer
+                        : ''
+                    }}
+                    className='down'
                      onClick={ handleDayModeChange }
-                >
-                    PM
+                >PM
                 </div>
             </div>
         </div>

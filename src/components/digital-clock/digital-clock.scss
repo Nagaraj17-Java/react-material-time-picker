@@ -21,10 +21,10 @@
       height: 72px;
       border-radius: .5rem;
       padding: 9px 16px;
-      background-color: $surface-variant;
+      //background-color: $surface-variant;
       border: none;
       &:focus{
-        border: 2px solid $primary;
+        //border: 2px solid $primary;
         //background-color: #E8DEF8;
         outline: none;
       }
@@ -34,8 +34,8 @@
     }
   }
   .activated {
-    border: 2px solid $primary !important;;
-    background-color: #E8DEF8 !important;
+    //border: 2px solid $primary !important;
+    //background-color: #E8DEF8 !important;
     outline: none;
     pointer-events: none;
   }
@@ -48,7 +48,7 @@
     display: grid;
     grid-auto-flow: row;
     border-radius: 8px;
-    border: 1px solid $outline;
+    //border: 1px solid $outline;
     height: 72px;
     div{
       padding: 0 10px;
@@ -63,7 +63,7 @@
       border-radius: 0 0 8px 8px  ;
     }
     .active{
-      background-color: $tertiary-container;
+      //background-color: $tertiary-container;
     }
   }
 }

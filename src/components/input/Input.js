@@ -3,7 +3,7 @@ import {useState} from "react";
 
 
 const Input = (props) => {
-    const [ colors,setTheme,setColors] = useTheme()
+    const [ colors,] = useTheme()
     const [focused, setFocused] = useState(false)
 
     function handleFocus(e) {
