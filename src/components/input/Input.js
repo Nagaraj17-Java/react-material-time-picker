@@ -15,8 +15,9 @@ const Input = (props) => {
             backgroundColor: colors.errorContainer
         },
         focused: {
-            border: `2px solid ${colors.primary}`,
+            // border: `2px solid ${colors.primary}`,
             backgroundColor: colors.primaryContainer,
+            color:colors.onPrimaryContainer
         }
     };
     const [ currentStyle, setCurrentStyle ] = useState(styles.default);
