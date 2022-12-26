@@ -15,7 +15,6 @@ const Input = (props) => {
             backgroundColor: colors.errorContainer
         },
         focused: {
-            // border: `2px solid ${colors.primary}`,
             backgroundColor: colors.primaryContainer,
             color:colors.onPrimaryContainer
         }
@@ -28,21 +27,24 @@ const Input = (props) => {
         }
     },[props.error])
 
-    function handleFocusOut() {
-        setCurrentStyle(styles.default)
-        props.onBlur()
-    }
+    useEffect(()=>{
+        if(props.active === true) {
+            setCurrentStyle(styles.focused)
+        }else if(props.active === false){
+            setCurrentStyle(styles.default)
+        }
+    },[props.active])
+
     return (
         <input value={ props.value }
                onChange={ props.onChange }
-               onBlur={ handleFocusOut }
+               onBlur={ props.onBlur }
                onClick={ props.onClick }
                max={ props.max || '' }
                min={ props.min || '' }
                className={ props.className }
                type={ props.type || '' }
                placeholder={ props.placeholder || '' }
-               onFocus={() => setCurrentStyle(styles.focused)}
                style={ currentStyle }
         />
     );

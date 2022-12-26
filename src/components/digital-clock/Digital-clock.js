@@ -74,6 +74,7 @@ export default function DigitalClock( props ) {
                        className={ props.className }
                        onBlur={ ()=>setMsg('') }
                        error={ inpHoursError }
+                       active = {props.mode === 'hours'}
                 />
                 <div className='labels'>
                     { props.label1 || 'Hours' }
@@ -87,6 +88,7 @@ export default function DigitalClock( props ) {
                        className={ props.className }
                        onBlur={ ()=>setMsg('') }
                        error={ inpMinutesError }
+                       active = {props.mode === 'minutes'}
                 />
                 <div className='labels'>
                     { props.label2 || 'Minutes' }
