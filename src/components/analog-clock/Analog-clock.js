@@ -2,6 +2,7 @@ import {useEffect, useMemo, useRef, useState} from "react";
 import {Clock} from "./Clock.js";
 import {decode,normalize} from "../../utilities.js";
 import"./analog-clock.scss"
+import {useTheme} from "../../ThemeContext.js";
 
 export default function AnalogClock(props) {
 
@@ -16,6 +17,7 @@ export default function AnalogClock(props) {
     const [ pointerDigit,setPointerDigit ] = useState(  0);
     const [ radius,setRadius ] = useState(128);
     const pageIsLoaded = useRef(false);
+    const [colors] = useTheme();
 
     function autoRelocate( destIdx ) {
 
@@ -218,8 +220,15 @@ export default function AnalogClock(props) {
     },[ digits,pageIsLoaded ])
 
     return (
-        <div ref= { clockFace } className='clock'>
-            <div className='center'/>
+        <div ref= { clockFace }
+             className='clock'
+             style={{ background:colors.surfaceVariant ,
+                 color: colors.onSurfaceVariant
+                }}
+        >
+            <div className='center'
+                 style={{ backgroundColor:colors.primary }}
+            />
 
             <div id='digits-clockFace'>
             { Object.values( digits ).length > 0
@@ -245,10 +254,14 @@ export default function AnalogClock(props) {
             </div>
             <div ref ={ hand }
                  className='hand'
+                 style={{ background:`linear-gradient(250deg, ${ colors.primary } 50%, #AC6BFF00 0%)`}}
             />
             <div ref ={ pointerFace }
                  onMouseDown ={ handleDrag }
                  className ='pointer'
+                 style={{ backgroundColor:colors.primary,
+                        color:colors.onPrimary
+                    }}
                  id = 'pointer'
             />
         </div>)

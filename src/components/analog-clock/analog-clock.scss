@@ -8,12 +8,10 @@
     display: block;
 
   }
-  background: $surface-variant !important;
   width: 100%;
   box-sizing: border-box;
   border-radius: 500px;
   @include font-body-large;
-  color: $on-surface-variant;
   position: relative;
 
 
@@ -40,7 +38,6 @@
     border-radius: 100px;
     width: .5em;
     height: .5em;
-    background-color: $primary;
     left: 50%;
     top: 50%;
     transform: translate(-50%,-50%);
@@ -49,7 +46,6 @@
     height: 0.1em;
     width: 100%;
     position: absolute;
-    background: linear-gradient(250deg, $primary 50%, #AC6BFF00 0%);
     top: 50%;
     transform: translateY(-50%);
 
