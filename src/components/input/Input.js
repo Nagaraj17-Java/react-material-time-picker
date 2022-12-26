@@ -23,7 +23,6 @@ const Input = (props) => {
     useEffect(()=>{
         if(typeof props.error !== 'undefined' ){
             if( props.error === true) setCurrentStyle(styles.warning)
-            else setCurrentStyle(styles.default)
         }
     },[props.error])
 
