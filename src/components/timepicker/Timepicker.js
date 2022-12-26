@@ -17,7 +17,6 @@ function ActualTimePicker( props ) {
     const [ dayMode,setDayMode ]= useState('am');
     const [ colors,setTheme,setColors] = useTheme()
 
-    console.log(colors)
     useEffect(()=>{
         if( typeof props.colors !== "undefined"){
             setColors (props.colors)

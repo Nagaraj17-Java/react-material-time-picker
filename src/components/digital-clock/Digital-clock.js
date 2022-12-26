@@ -6,25 +6,19 @@ import {useTheme} from "../../ThemeContext.js";
 
 export default function DigitalClock( props ) {
 
-    const [ msg,setMsg ] = useState('');
     const [ colors ] = useTheme();
+    const [ msg,setMsg ] = useState('');
+    const [ inpHoursError,setInpHoursError ] = useState(false);
+    const [ inpMinutesError,setInpMinutesError ] = useState(false);
     const dayMode = props.dayMode;
 
-    function resetWarnings(e) {
-        const elementClasses = e.target.classList;
-        elementClasses.remove('warning-style');
-        setMsg('')
-    }
 
     function handleTimeChange(e,mode) {
-
-        const elementClasses = e.target.classList;
-        elementClasses.remove('warning-style');
 
         if( isNaN( e.target.value) ) {
 
             setMsg( 'Entered value can be only a number.');
-            elementClasses.add('warning-style');
+            ( mode === 'hours' ? setInpHoursError(true) :setInpMinutesError(true))
         }
         if( mode === 'hours') {
 
@@ -32,8 +26,9 @@ export default function DigitalClock( props ) {
             const maxHour = (dayMode === 'pm' ? 23 : 11);
 
             if ( e.target.value > maxHour ) {
+
                 setMsg(`Hours has to be less than ${ dayMode === 'pm' ? 24 : 12 } in ${ dayMode.toUpperCase() } mode.`)
-                elementClasses.add('warning-style');
+                setInpHoursError(true);
             }
 
             const val = normalize( Math.min( parseInt(e.target.value), maxHour ) )
@@ -42,8 +37,9 @@ export default function DigitalClock( props ) {
         } else {
             const maxMinutes = 59;
             if (e.target.value > maxMinutes) {
+
                 setMsg('Minutes cant be greater than 60!')
-                elementClasses.add('warning-style');
+                setInpMinutesError(true);
             }
 
             const minutesVal = normalize( Math.min( parseInt(e.target.value), maxMinutes ) )
@@ -56,10 +52,12 @@ export default function DigitalClock( props ) {
 
         let time = decode( props.time);
         let hourValue = Number(time.hour);
+
         if( dayMode === 'am' ){
 
             hourValue = hourValue === 12 ? 12 : normalize(hourValue + 12)
             props.setDayMode('pm');
+
         }else if( dayMode === 'pm'){
 
             hourValue = normalize(hourValue % 12);
@@ -74,21 +72,21 @@ export default function DigitalClock( props ) {
                        onChange={ e => handleTimeChange( e,'hours' ) }
                        onClick={ ()=> props.setMode( 'hours' ) }
                        className={ props.className }
-                       onBlur={ resetWarnings }
+                       onBlur={ ()=>setInpHoursError(false) }
+                       error={ inpHoursError }
                 />
                 <div className='labels'>
                     { props.label1 || 'Hours' }
                 </div>
             </div>
             :
-            <div
-                style={{backgroundColor:props.primary}}
-                className= 'inps-container'>
+            <div className= 'inps-container'>
                 <Input value={ decode( props.time || 0).minute }
                        onChange={ e => handleTimeChange( e,'minutes') }
                        onClick={ ()=> props.setMode( 'minutes' ) }
                        className={ props.className }
-                       onBlur={ resetWarnings }
+                       onBlur={ ()=>setInpMinutesError(false) }
+                       error={ inpMinutesError }
                 />
                 <div className='labels'>
                     { props.label2 || 'Minutes' }
@@ -99,7 +97,7 @@ export default function DigitalClock( props ) {
                     border: `1px solid ${colors.outline}`
                 }}
             >
-                <div style={{backgroundColor : props.dayMode === 'am'
+                <div style={{ backgroundColor : props.dayMode === 'am'
                         ? colors.tertiaryContainer
                         : ''
                     }}
@@ -107,7 +105,7 @@ export default function DigitalClock( props ) {
                      onClick={ handleDayModeChange }
                 >AM
                 </div>
-                <div style={{backgroundColor : props.dayMode === 'pm'
+                <div style={{ backgroundColor : props.dayMode === 'pm'
                         ? colors.tertiaryContainer
                         : ''
                     }}

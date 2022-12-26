@@ -10,8 +10,7 @@
   grid-gap: 12px;
 
   .activated {
-    //border: 2px solid $primary !important;
-    //background-color: #E8DEF8 !important;
+
     outline: none;
     pointer-events: none;
   }
@@ -24,7 +23,6 @@
     display: grid;
     grid-auto-flow: row;
     border-radius: 8px;
-    //border: 1px solid $outline;
     height: 72px;
     div{
       padding: 0 10px;
@@ -37,9 +35,6 @@
     }
     .down{
       border-radius: 0 0 8px 8px  ;
-    }
-    .active{
-      //background-color: $tertiary-container;
     }
   }
 }
