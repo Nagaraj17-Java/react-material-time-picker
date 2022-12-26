@@ -18,6 +18,7 @@ export default function DigitalClock( props ) {
 
             setMsg( 'Entered value can be only a number.');
             ( mode === 'hours' ? setInpHoursError(true) : setInpMinutesError(true))
+            return;
         }
         if( mode === 'hours') {
 

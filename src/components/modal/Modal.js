@@ -1,6 +1,13 @@
 import './modal.scss'
-function Modal( props ) {
+import {useTheme} from "../../ThemeContext.js";
 
+function Modal( props ) {
+    const [colors,]=useTheme();
+    const style = {
+        background : colors.surface3,
+        zIndex:`${ props.zIndex || 1002}`,
+        color : colors.onSurface
+    }
     return (
         props.show ? (
             <div className='modal-component'>
@@ -8,10 +15,12 @@ function Modal( props ) {
                     className='scrim'
                     onClick={ props.hide }
                     style={{ zIndex:`${ props.zIndex || 1002}` }}
+
                 />
                 <div
                     id='modal-container'
-                    style={{ zIndex:`${ props.zIndex || 1002}` }}
+                    style={{...style}}
+                    // style={{  }}
                 >
                     { props.children }
 
@@ -23,3 +32,4 @@ function Modal( props ) {
     );
 }
 export { Modal };
+//todo add z-index props.

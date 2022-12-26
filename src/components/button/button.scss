@@ -21,9 +21,9 @@
     width: 19em !important;
   }
   .filled{
-    color: $on-primary;
-    background-color: $primary;
-    border: none;
+    //color: $on-primary;
+    //background-color: $primary;
+    //border: none;
   }
   .outlined{
     box-shadow: none;
@@ -32,7 +32,7 @@
   .text{
     background-color: transparent;
     border: none;
-    color: $primary;
+    //color: $primary;
 
     &:hover{
       &:after {

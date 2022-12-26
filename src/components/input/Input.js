@@ -7,7 +7,8 @@ const Input = (props) => {
     const styles = {
         default: {
             backgroundColor: colors.surfaceVariant,
-            outline: 'none'
+            outline: 'none',
+            color:colors.onSurface
         },
         warning: {
             border: `2px solid ${colors.error}`,
