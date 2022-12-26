@@ -1,5 +1,5 @@
 import {useTheme} from "../../ThemeContext.js";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import './input.scss'
 
 const Input = (props) => {
@@ -19,13 +19,6 @@ const Input = (props) => {
         }
     };
     const [ currentStyle, setCurrentStyle ] = useState(styles.default);
-
-    useEffect(()=>{
-        if(typeof props.error !== 'undefined' ){
-            if( props.error === true) setCurrentStyle(styles.warning)
-            else setCurrentStyle(styles.default)
-        }
-    },[props.error])
 
     function handleFocusOut(e) {
         setCurrentStyle(styles.default)
