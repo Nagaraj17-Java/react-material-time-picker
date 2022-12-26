@@ -5,7 +5,8 @@ export default function Button(props) {
     const [ colors ] =useTheme();
     const styles = {
         outline : {
-
+            border: `2px solid ${colors.outline}`,
+            color : colors.primary
         },
         filled : {
             color : colors.onPrimary,
@@ -16,7 +17,7 @@ export default function Button(props) {
             color : colors.primary,
             ':hover':{
                 backgroundColor: colors.primary,
-                opacity:8
+                opacity:.08
             }
 
         }
