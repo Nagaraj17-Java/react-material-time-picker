@@ -27,9 +27,9 @@ const Input = (props) => {
         }
     },[props.error])
 
-    function handleFocusOut(e) {
+    function handleFocusOut() {
         setCurrentStyle(styles.default)
-        props.onBlur(e)
+        props.onBlur()
     }
     return (
         <input value={ props.value }

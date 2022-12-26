@@ -12,13 +12,12 @@ export default function DigitalClock( props ) {
     const [ inpMinutesError,setInpMinutesError ] = useState(false);
     const dayMode = props.dayMode;
 
-
     function handleTimeChange(e,mode) {
 
         if( isNaN( e.target.value) ) {
 
             setMsg( 'Entered value can be only a number.');
-            ( mode === 'hours' ? setInpHoursError(true) :setInpMinutesError(true))
+            ( mode === 'hours' ? setInpHoursError(true) : setInpMinutesError(true))
         }
         if( mode === 'hours') {
 
@@ -72,7 +71,7 @@ export default function DigitalClock( props ) {
                        onChange={ e => handleTimeChange( e,'hours' ) }
                        onClick={ ()=> props.setMode( 'hours' ) }
                        className={ props.className }
-                       onBlur={ ()=>setInpHoursError(false) }
+                       onBlur={ ()=>setMsg('') }
                        error={ inpHoursError }
                 />
                 <div className='labels'>
@@ -85,7 +84,7 @@ export default function DigitalClock( props ) {
                        onChange={ e => handleTimeChange( e,'minutes') }
                        onClick={ ()=> props.setMode( 'minutes' ) }
                        className={ props.className }
-                       onBlur={ ()=>setInpMinutesError(false) }
+                       onBlur={ ()=>setMsg('') }
                        error={ inpMinutesError }
                 />
                 <div className='labels'>
