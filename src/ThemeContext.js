@@ -41,7 +41,7 @@ function ThemeProvider(props){
         }
     })
 
-    const [ theme,setTheme ] = useState( 'light' );
+    const [ theme,setTheme ] = useState( 'dark' );
 
     let colors = (theme === 'dark' ? themes.dark : themes.light);
 

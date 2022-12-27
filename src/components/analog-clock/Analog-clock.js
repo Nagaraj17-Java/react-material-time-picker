@@ -20,7 +20,7 @@ export default function AnalogClock(props) {
     const [ minutesPointerDigit,setMinutesPointerDigit ] = useState(  0);
     const [ radius,setRadius ] = useState(128);
     const pageIsLoaded = useRef(false);
-    const [colors] = useTheme();
+    const [ colors ] = useTheme();
     const digits = props.mode === 'hours' ? hoursDigits : minutesDigits;
     const pointer = props.mode === 'hours' ? hoursPointerDigit :minutesPointerDigit;
     const setPointer = props.mode === 'hours' ? setHoursPointerDigit : setMinutesPointerDigit;

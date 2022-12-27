@@ -24,6 +24,10 @@ function ActualTimePicker( props ) {
         }
 
     },[ props.colors ])
+    useEffect(()=>{
+        if( typeof props.theme !== "undefined") setTheme(props.theme)
+
+    },[ props.theme ])
 
     useEffect(()=>{
         if( typeof time !== 'undefined'){
@@ -58,7 +62,7 @@ function ActualTimePicker( props ) {
                             />
                             : ''
                         }
-                        <div className='footer' style={{fill:`${colors.onSurfaceVariant}`}}>
+                        <div className='footer' style={{ fill:`${ colors.onSurfaceVariant }`}}>
                             { clockDisplay === false
                                 ? <ClockIcon onClick={ ()=> setClockDisplay(true) }/>
                                 : <KeyBoardIcon onClick={ ()=> setClockDisplay(false)}/>
