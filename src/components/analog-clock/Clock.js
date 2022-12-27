@@ -2,7 +2,7 @@ import {Digit} from "./Digit.js";
 
 export class Clock{
     path = [];
-    radius = 128;
+    radius = 126;
     constructor() {
 
         this.count = 0;
@@ -53,10 +53,8 @@ export class Clock{
     }
     goClockwise( startIdx , distance ){
 
-        let current;
         this.path = []
-        // current = this.getElementAt( startIdx );
-        current = this.digits[startIdx];
+        let current = this.digits[startIdx];
 
         for (let i = 0 ; i < distance ; i++ ) {
 
@@ -69,10 +67,8 @@ export class Clock{
 
     goCounterClockwise( startIdx , distance ) {
 
-        let current;
         this.path = []
-        // current = this.getElementAt( startIdx );
-        current = this.digits[startIdx];
+        let current = this.digits[startIdx];
 
         for (let i = 0 ; i < distance ; i++ ) {
 
@@ -82,18 +78,6 @@ export class Clock{
 
         return this.path
     }
-
-    // getElementAt( index ) {
-    //
-    //     if ( index >= 0 && index <= this.count ) {
-    //         let node = this.head;
-    //         for ( let i = 0; i < index && node != null; i++ ) {
-    //             node = node.next;
-    //         }
-    //         return node;
-    //     }
-    //     return undefined;
-    // }
 
     getDigits() {
 

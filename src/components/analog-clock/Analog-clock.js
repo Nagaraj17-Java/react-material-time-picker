@@ -118,8 +118,7 @@ export default function AnalogClock(props) {
     function handleDrag (e) {
 
         let mousePos;
-        let angel = getAngelByIndex( pointer) //the last position
-
+        let angel = getAngelByIndex( pointer) //the last position of the hand clock
 
         function handleRelease() {
 
@@ -127,7 +126,7 @@ export default function AnalogClock(props) {
             window.removeEventListener('mouseup',handleRelease);
 
             let closestDigit = clock.getTheClosestDigit(angel);
-            setPointer( closestDigit ); //todo
+            setPointer( closestDigit );
             setGlobalTime( closestDigit )
             relocatePointerByIndex( closestDigit )
         }
@@ -232,7 +231,7 @@ export default function AnalogClock(props) {
 
             const diameter = clockFace.current?.getBoundingClientRect().width;
             const offset = parseFloat( window.getComputedStyle( clockFace.current, null ).getPropertyValue('font-size' ));
-            const radius = Math.round(diameter- offset - offset/( diameter/2 ))/ 2;
+            const radius = Math.round(diameter- offset - 2*offset/( diameter/4 ))/2;
             setRadius( radius );
             drawClock( radius, offset);
         }
@@ -275,7 +274,7 @@ export default function AnalogClock(props) {
                           }}>
                                 { props.mode === 'hours'
                                     ? index === 0 ? 12 : index
-                                    : index%5 === 0 ? index :'.'
+                                    : index%5 === 0 ? index :<span className='no-show-minutes'>.</span>
                                 }
                     </span>
                 ))
