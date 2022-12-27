@@ -6,6 +6,7 @@ import {ReactComponent as KeyBoardIcon} from "./keyboard.svg";
 import DigitalClock from "../digital-clock/Digital-clock.js";
 import AnalogClock from "../analog-clock/Analog-clock.js";
 import {ThemeProvider, useTheme} from "../../ThemeContext.js";
+import Button from "../button/Button.js";
 
 const TimePicker = props=>(<ThemeProvider><ActualTimePicker {...props} /></ThemeProvider>)
 
@@ -15,7 +16,8 @@ function ActualTimePicker( props ) {
     const [ mode,setMode ]= useState('hours');
     const [ clockDisplay,setClockDisplay ] = useState(false);
     const [ dayMode,setDayMode ]= useState('am');
-    const [ colors,setTheme,setColors] = useTheme()
+    const [ colors , setTheme, setColors ] = useTheme()
+
 
     useEffect(()=>{
         if( typeof props.colors !== "undefined"){
@@ -24,8 +26,9 @@ function ActualTimePicker( props ) {
         }
 
     },[ props.colors ])
+
     useEffect(()=>{
-        if( typeof props.theme !== "undefined") setTheme(props.theme)
+        if( typeof props.theme !== "undefined") setTheme( props.theme )
 
     },[ props.theme ])
 
@@ -43,7 +46,10 @@ function ActualTimePicker( props ) {
 
     return (
             <div className='time-picker-component' >
-                    <Modal show={ props.show } hide={ props.hide }>
+                    <Modal show={ props.show }
+                           hide={ props.hide }
+                           zIndex ={ props.zIndex || 1002 }
+                    >
                         <span className='title labels'>
                             { props.title || 'Enter time' }
                         </span>
@@ -62,12 +68,20 @@ function ActualTimePicker( props ) {
                             />
                             : ''
                         }
-                        <div className='footer' style={{ fill:`${ colors.onSurfaceVariant }`}}>
+                        <div className='footer'
+                             style={{ fill:`${ colors.onSurfaceVariant }`}}
+                        >
                             { clockDisplay === false
                                 ? <ClockIcon onClick={ ()=> setClockDisplay(true) }/>
                                 : <KeyBoardIcon onClick={ ()=> setClockDisplay(false)}/>
                             }
-                            { props.buttons }
+                            { props.buttons.map(x=>
+                                <Button type='text'
+                                        click={ x.onClick }
+                                >
+                                    { x.label }
+                                </Button>
+                            ) }
                         </div>
                     </Modal>
             </div>

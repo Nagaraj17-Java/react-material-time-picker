@@ -1,8 +1,8 @@
 import {createContext, useContext,useState} from "react";
 
 const ThemeContext = createContext(null);
-function ThemeProvider(props){
 
+function ThemeProvider(props){
     const [ themes,setThemes ] = useState({
         light:{
             primary : '#6750A4',
@@ -18,7 +18,7 @@ function ThemeProvider(props){
             primaryContainer: '#EADDFF',
             onPrimaryContainer: '#21005D',
             error : '#B3261E',
-            surface3: 'background: linear-gradient(0deg, #FFFBFE, #FFFBFE),' +
+            surface3: 'linear-gradient(0deg, #FFFBFE, #FFFBFE),' +
                 'linear-gradient(0deg, rgba(103, 80, 164, 0.11), rgba(103, 80, 164, 0.11))'
 
 },
@@ -45,7 +45,7 @@ function ThemeProvider(props){
 
     let colors = (theme === 'dark' ? themes.dark : themes.light);
 
-    return <ThemeContext.Provider {...props} value={[ colors,setTheme,setThemes ]}/>
+    return <ThemeContext.Provider {...props} value={[ colors ,setTheme ,setThemes ]}/>
 }
 function useTheme() {
     const context = useContext(ThemeContext);

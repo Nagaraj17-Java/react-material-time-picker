@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import './input.scss'
 
 const Input = (props) => {
-    const [ colors,] = useTheme()
+    const [ colors ] = useTheme()
     const styles = {
         default: {
             backgroundColor: colors.surfaceVariant,
@@ -23,17 +23,19 @@ const Input = (props) => {
 
     useEffect(()=>{
         if(typeof props.error !== 'undefined' ){
-            if( props.error === true) setCurrentStyle(styles.warning)
+            if( props.error === true) setCurrentStyle( styles.warning )
         }
     },[props.error])
 
     useEffect(()=>{
-        if(props.active === true) {
-            setCurrentStyle(styles.focused)
-        }else if(props.active === false){
-            setCurrentStyle(styles.default)
+        if( props.active === true ) {
+            setCurrentStyle( styles.focused )
+
+        }else if( props.active === false ){
+            setCurrentStyle( styles.default )
+
         }
-    },[props.active])
+    },[ props.active,colors ])
 
     return (
         <input value={ props.value }

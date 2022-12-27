@@ -30,7 +30,6 @@ export default function AnalogClock(props) {
 
         const start = props.mode === 'hours' ? pointer%12 : pointer;
         const path = shortestPath( start , destIdx );
-        console.log(path)
         const waitTime = 300/path.length
 
         function wait(ms) {

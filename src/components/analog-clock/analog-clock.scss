@@ -1,6 +1,8 @@
 @import "./src/App";
 .clock {
 
+  margin-top: 2em;
+  margin-bottom: 2em;
   &:before{
     content: '';
     padding-top: 100%;
@@ -13,7 +15,6 @@
   border-radius: 500px;
   @include font-body-large;
   position: relative;
-
 
   span{
     cursor: pointer;
