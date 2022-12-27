@@ -1,8 +1,9 @@
 @import "./src/App";
 .clock {
 
-  margin-top: 2em;
-  margin-bottom: 2em;
+  margin:2em auto;
+  max-width: 80%;
+
   &:before{
     content: '';
     padding-top: 100%;
@@ -10,7 +11,7 @@
     display: block;
 
   }
-  width: 100%;
+  //width: 100%;
   box-sizing: border-box;
   border-radius: 500px;
   @include font-body-large;

@@ -7,12 +7,13 @@ import DigitalClock from "../digital-clock/Digital-clock.js";
 import AnalogClock from "../analog-clock/Analog-clock.js";
 import {ThemeProvider, useTheme} from "../../ThemeContext.js";
 import Button from "../button/Button.js";
+import {decode} from "../../utilities.js";
 
 const TimePicker = props=>(<ThemeProvider><ActualTimePicker {...props} /></ThemeProvider>)
 
 function ActualTimePicker( props ) {
 
-    const [ time,setTime ]= useState('0000');
+    const [ time,setTime ]= useState( '0000');
     const [ mode,setMode ]= useState('hours');
     const [ clockDisplay,setClockDisplay ] = useState(false);
     const [ dayMode,setDayMode ]= useState('am');
@@ -33,15 +34,17 @@ function ActualTimePicker( props ) {
     },[ props.theme ])
 
     useEffect(()=>{
-        if( typeof time !== 'undefined'){
-            props.onChange( time  )
-        }
+        if( typeof time !== 'undefined')props.onChange( time  )
 
     },[ time ])
 
     useEffect( ()=>{
+        if( typeof props.defaultValue !== "undefined"){
+            setTime( props.defaultValue )
 
-        if( typeof props.defaultValue !== "undefined") setTime( props.defaultValue )
+            if(decode( props.defaultValue ).hour >= 12) setDayMode('pm')
+            else setDayMode('am')
+        }
     },[ props.defaultValue ])
 
     return (
@@ -62,10 +65,11 @@ function ActualTimePicker( props ) {
                                       setDayMode={ setDayMode }
                         />
                         { clockDisplay === true
-                            ? <AnalogClock time={time}
-                                     dayMode={ dayMode }
-                                     onChange={ setTime }
-                                     mode={ mode }
+                            ? <AnalogClock  time={time}
+                                            dayMode={ dayMode }
+                                            onChange={ setTime }
+                                            mode={ mode }
+                                            width={ props.width }
                             />
                             : ''
                         }

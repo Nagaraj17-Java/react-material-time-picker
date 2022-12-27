@@ -5,9 +5,8 @@ TimePicker is a user interface component that allows the user to easily select a
 ## Features
 
 - The user can enter the number either using the keyboard or using the analog clock.
-- The clock React component is responsive and works well on different devices and screen sizes. The clock adjusts its layout and content for the best user experience on different devices and screen sizes.
-- The clock's appearance is based on Material design v3.
-- In the "minutes" mode, the numbers on the clock, change to minutes numbers (0 to 60).
+- The clock React component is responsive and works well on different devices and screen sizes. The clock adjusts its layout on different devices and screen sizes.
+- The clock's appearance is based on Material design v3 with more features to make the better user experience on selecting time.
 - The user can pick a time by either clicking on a number or dragging the clock hand.
 - When the user clicks on a number the clock hand is designed to smoothly move towards it, and uses a function named “shortestPath” to find the shortest path. ( moves clockwise or counterclockwise ).
 - When the user releases the clock hand after dragging it to select a time, it will snap to the nearest number using a function named “getTheClosestDigit”.
@@ -19,22 +18,39 @@ The algorithm used for finding the closest digit to where the user has released 
 
 
 ```javascript
-const unit = Math.PI/6;
-const numberOfUnits = Math.round( angel / unit );
-return ( numberOfUnits < -3 ? 15 + numberOfUnits : numberOfUnits + 3 );
+
+getTheClosestDigit (angel ){
+
+  const unitDegree = Math.PI/( this.numberOfUnits/2 );
+  const distance = Math.round(angel / unitDegree );
+  return ( distance < -( this.numberOfUnits/4 )
+                  ? 5*( this.numberOfUnits /4 ) + distance
+                  : distance + ( this.numberOfUnits/4 )
+  );
+}
 ```
 
 The algorithm to find the shortest path is :
 
 ```javascript
-if( ( difference > 0 && difference < 6 ) || 12 - start + dest <= 6) {
+function shortestPath( start,dest ) {
+  let path;
+  let difference = dest - start;
+  let distance;
 
-distance = difference > 0 ? difference : 12 - start + dest;
-path = clock.goClockwise( start, distance )
-} else {
+  const fullClock = (props.mode === 'minutes' ? 60 : 12)
 
-distance = Math.abs (dest - start) >= 6 ? 12 - dest+ start : start - dest;
-path = clock.goCounterClockwise( start, distance )
+  if( ( difference > 0 && difference < fullClock/2 ) || fullClock - start + dest <= fullClock/2) {
+
+    distance = difference > 0 ? difference : fullClock - start + dest;
+    path = clock.goClockwise( start, distance )
+  } else {
+
+    distance = Math.abs (dest - start) >= fullClock/2 ? fullClock - dest+ start : start - dest;
+    path = clock.goCounterClockwise( start, distance )
+  }
+
+  return path;
 }
 ```
 
@@ -55,7 +71,7 @@ import TimePicker from 'material-timepicker';
 Once you have imported the component, you can use it in your app as follows:
 
 
-The "TimePicker" component needs the following:
+The "TimePicker" component needs the following variables:
 - A function for applying changes, which uses the useState hook to update the time
 - A function for hiding the modal from the page, called handleClose
 - A title that will appear at the top of the modal

@@ -52,13 +52,9 @@ export default function AnalogClock(props) {
     function shortestPath( start,dest ) {
         let path;
         let difference = dest - start;
-        let distance,fullClock;
+        let distance;
 
-        if(props.mode === 'minutes') {
-            fullClock = 60;
-        }else{
-            fullClock = 12;
-        }
+        const fullClock = (props.mode === 'minutes' ? 60 : 12)
 
         if( ( difference > 0 && difference < fullClock/2 ) || fullClock - start + dest <= fullClock/2) {
 
@@ -247,13 +243,14 @@ export default function AnalogClock(props) {
 
     useEffect(()=>{
         relocatePointerByIndex(pointer)
-    },[pointer])
+    },[ pointer ])
 
     return (
         <div ref= { clockFace }
              className='clock'
-             style={{ background:colors.surfaceVariant ,
-                 color: colors.onSurfaceVariant
+             style={{   background:colors.surfaceVariant ,
+                        color: colors.onSurfaceVariant,
+                        maxWidth: props.width <= 350 ? '80%' : '60%', //todo
                 }}
         >
             <div className='center'

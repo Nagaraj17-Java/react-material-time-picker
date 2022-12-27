@@ -68,7 +68,7 @@ export default function DigitalClock( props ) {
 
     return (<><div id='digital-clock-component'>
             <div className= 'inps-container'>
-                <Input value={ decode( props.time || 0).hour }
+                <Input value={ normalize( decode( props.time || 0).hour%12) }
                        onChange={ e => handleTimeChange( e,'hours' ) }
                        onClick={ ()=> props.setMode( 'hours' ) }
                        className={ props.className }
