@@ -49,6 +49,7 @@ function ActualTimePicker( props ) {
                     <Modal show={ props.show }
                            hide={ props.hide }
                            zIndex ={ props.zIndex || 1002 }
+                           width={ props.width }
                     >
                         <span className='title labels'>
                             { props.title || 'Enter time' }

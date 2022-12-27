@@ -31,9 +31,7 @@
     width: 80%;
     margin: 2.250em auto;
   }
-  .notShow{
-    display: none;
-  }
+ 
   .footer{
     svg{
       width: 1.5em;
@@ -46,21 +44,18 @@
     grid-template-columns: 1fr auto ;
 
   }
-  .inp-deactive{
-    pointer-events: none;
-  }
+  //.inp-deactive{
+  //  pointer-events: none;
+  //}
   .msg {
     @include font-body-small;
     align-self: end;
     margin: 1em 0;
     color: $error;
   }
-  .warning-style {
-    //border: 2px solid $error !important;
-    //background-color: $error-container !important;
-  }
-  .btns{
-    display: grid;
-    grid-auto-flow: column;
-  }
+
+  //.btns{
+  //  display: grid;
+  //  grid-auto-flow: column;
+  //}
 }
