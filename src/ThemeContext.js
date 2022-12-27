@@ -19,7 +19,7 @@ function ThemeProvider(props){
             onPrimaryContainer: '#21005D',
             error : '#B3261E',
             surface3: 'background: linear-gradient(0deg, #FFFBFE, #FFFBFE),' +
-                'linear-gradient(0deg, rgba(103, 80, 164, 0.11), rgba(103, 80, 164, 0.11));'
+                'linear-gradient(0deg, rgba(103, 80, 164, 0.11), rgba(103, 80, 164, 0.11))'
 
 },
         dark: {
@@ -41,7 +41,7 @@ function ThemeProvider(props){
         }
     })
 
-    const [ theme,setTheme ] = useState( 'dark' );
+    const [ theme,setTheme ] = useState( 'light' );
 
     let colors = (theme === 'dark' ? themes.dark : themes.light);
 

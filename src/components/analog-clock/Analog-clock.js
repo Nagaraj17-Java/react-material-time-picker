@@ -3,68 +3,87 @@ import {Clock} from "./Clock.js";
 import {decode,normalize} from "../../utilities.js";
 import"./analog-clock.scss"
 import {useTheme} from "../../ThemeContext.js";
+// import {angelToPos,getAngel,radToDegree} from "./analogClockHandy.js";
 
 export default function AnalogClock(props) {
 
     const clockFace = useRef();
     const hand = useRef();
     let animationId = 0;
-    let intervalHandler;
     const clockPos = clockFace.current?.getBoundingClientRect() || { left:0, top:0 };
     const pointerFace = useRef();
-    const clock = useMemo(()=>{ return new Clock()},[]);
-    const [ digits, setDigits ] = useState([]);
-    const [ pointerDigit,setPointerDigit ] = useState(  0);
+    const hoursClockFace = useMemo(()=>{ return new Clock()},[]);
+    const minutesClockFace = useMemo(()=>{ return new Clock()},[]);
+    const [ hoursDigits, setHoursDigits ] = useState([]);
+    const [ minutesDigits, setMinutesDigits ] = useState([]);
+    const [ hoursPointerDigit,setHoursPointerDigit ] = useState(  0);
+    const [ minutesPointerDigit,setMinutesPointerDigit ] = useState(  0);
     const [ radius,setRadius ] = useState(128);
     const pageIsLoaded = useRef(false);
     const [colors] = useTheme();
+    const digits = props.mode === 'hours' ? hoursDigits : minutesDigits;
+    const pointer = props.mode === 'hours' ? hoursPointerDigit :minutesPointerDigit;
+    const setPointer = props.mode === 'hours' ? setHoursPointerDigit : setMinutesPointerDigit;
+    let clock = props.mode === 'hours' ? hoursClockFace : minutesClockFace;
 
-    function autoRelocate( destIdx ) {
+    function handleAnimatedRelocation( destIdx ) {
 
-        if ( intervalHandler ) clearInterval( intervalHandler );
-        let counter = 0;
-        const path = shortestPath( pointerDigit % 12 , destIdx );
-        intervalHandler = setInterval(()=>{
+        const start = props.mode === 'hours' ? pointer%12 : pointer;
+        const path = shortestPath( start , destIdx );
+        console.log(path)
+        const waitTime = 300/path.length
 
-            if( counter < path.length ) {
+        function wait(ms) {
+            return new Promise(resolve => setTimeout(resolve , ms))
+        }
 
-                setPointerByIndex(path[ counter ].value);
-                counter++;
-            }else{
-
-                clearInterval( intervalHandler );
-                setPointerDigit( destIdx );
+        async function loop(counter) {
+            if(counter >= path.length){
+                setPointer( destIdx );
+                return;
             }
-        },80)
+            await relocatePointerByIndex(path[ counter ].value);
+            await wait(waitTime);
+            requestAnimationFrame(()=>{ loop(counter+1)})
+        }
+        loop(0);
+
     }
 
     function shortestPath( start,dest ) {
         let path;
-
         let difference = dest - start;
-        let distance;
+        let distance,fullClock;
 
-        if( ( difference > 0 && difference < 6 ) || 12 - start + dest <= 6) {
+        if(props.mode === 'minutes') {
+            fullClock = 60;
+        }else{
+            fullClock = 12;
+        }
 
-            distance = difference > 0 ? difference : 12 - start + dest;
+        if( ( difference > 0 && difference < fullClock/2 ) || fullClock - start + dest <= fullClock/2) {
+
+            distance = difference > 0 ? difference : fullClock - start + dest;
             path = clock.goClockwise( start, distance )
         } else {
 
-            distance = Math.abs (dest - start) >= 6 ? 12 - dest+ start : start - dest;
+            distance = Math.abs (dest - start) >= fullClock/2 ? fullClock - dest+ start : start - dest;
             path = clock.goCounterClockwise( start, distance )
         }
+
         return path;
     }
 
     function drawClock (radius,offset) {
 
-        clock.draw( radius , 0);
+        hoursClockFace.draw( radius , 12);
+        minutesClockFace.draw( radius , 60);
 
-        setDigits( clock.getDigits() );
+        setHoursDigits( hoursClockFace.getDigits() );
+        setMinutesDigits( minutesClockFace.getDigits() );
 
         const clockFaceElement = document.getElementById('digits-clockFace');
         const pointerElement = document.getElementById('pointer');
-
 
         pointerElement.style.width = offset * 3+'px';
         pointerElement.style.height = offset * 3+'px';
@@ -88,7 +107,10 @@ export default function AnalogClock(props) {
     }
 
     function getAngelByIndex ( idx ) {
-        if ( idx >= 0 && idx < 12 ){
+
+        const numberOfUnits = props.mode === 'hours' ? 12 : 60;
+
+        if ( idx >= 0 && idx < numberOfUnits ){
             return getAngel( digits[idx].placement.x, digits[idx].placement.y);
         }
     }
@@ -96,16 +118,18 @@ export default function AnalogClock(props) {
     function handleDrag (e) {
 
         let mousePos;
-        let angel = getAngelByIndex( pointerDigit) //the last position
+        let angel = getAngelByIndex( pointer) //the last position
+
 
         function handleRelease() {
 
             window.removeEventListener('mousemove',startAnimation);
             window.removeEventListener('mouseup',handleRelease);
-            const closestDigit = clock.getTheClosestDigit( angel )
-            setPointerDigit( closestDigit ); //todo
+
+            let closestDigit = clock.getTheClosestDigit(angel);
+            setPointer( closestDigit ); //todo
             setGlobalTime( closestDigit )
-            setPointerByIndex( closestDigit )
+            relocatePointerByIndex( closestDigit )
         }
 
         function startAnimation(e){
@@ -118,7 +142,7 @@ export default function AnalogClock(props) {
             mousePos = getPosFromClockCenter( e.clientX,e.clientY );
             angel = getAngel( mousePos.x,mousePos.y );
 
-            setPointer( angel,null, clock.getTheClosestDigit(angel) )
+            relocatePointerByAngel( angel,null, clock.getTheClosestDigit(angel) )
         }
         e.preventDefault();
         window.addEventListener( "mousemove", startAnimation );
@@ -144,57 +168,60 @@ export default function AnalogClock(props) {
         }
     }
 
-    function setPointer( angel,pointPlacement=null,value=null ) {
+    function relocatePointerByAngel( angel,pointPlacement=null,value=null ) {
 
         const degree = radToDegree( angel );
-        if( pointPlacement === null ) pointPlacement = angelToPos( angel );
-        if( value === null) value = pointerDigit;
+        if( pointPlacement === null ) pointPlacement = angelToPos( angel,radius );
+        if( value === null) value = pointer;
 
         pointerFace.current.style.transform = "translate("+ pointPlacement.x+"px,"+ pointPlacement.y+"px)";
         pointerFace.current.innerHTML = props.mode === 'hours'
             ? value === 0 ? 12 : value
-            : value *5 ;
+            : value;
 
         hand.current.style.transform = "rotate("+degree+"deg)"
     }
 
-    function setPointerByIndex( idx ) {
+    function relocatePointerByIndex( idx ) {
 
         if( digits.length === 0) return;
         let point = digits[ idx ].placement;
         const rad = clock.angel( idx );
-        setPointer( rad,point,idx )
+        relocatePointerByAngel( rad,point,idx )
     }
 
     function handleAutoRelocate( index ) {
-        autoRelocate( index );
+
+        handleAnimatedRelocation( index );
         setGlobalTime( index );
     }
 
     function setGlobalTime( newTime ) {
+
         let time = decode( props.time );
         ( props.mode === 'hours'
-                ? props.onChange( `${ props.dayMode === 'pm' ? parseInt( newTime ) +12 : normalize( newTime ) }${ time.minute }`)
-                : props.onChange( `${ time.hour }${ normalize(newTime * 5 ) }`)
+                ? props.onChange( `${ props.dayMode === 'pm' 
+                        ? parseInt( newTime ) +12 
+                        : normalize( newTime ) }${ time.minute }`)
+                : props.onChange( `${ time.hour }${ normalize( newTime ) }`)
         )
     }
 
     function getGlobalTime( mode ) {
+
         const time = decode( props.time );
         return mode === 'hours'
             ? parseInt( time.hour%12 )
-            : Math.round( parseInt( time.minute / 5 ));
-
+            : parseInt( time.minute );
     }
 
     useEffect(()=>{
 
-        console.log(props.time)
         if( typeof props.time !== 'undefined' && digits.length >0 ) {
 
             const digit = getGlobalTime( props.mode )
-            if( digit !== pointerDigit ){
-                autoRelocate( digit );
+            if( digit !== pointer ){
+                handleAnimatedRelocation( digit );
             }
         }
     },[ props.time,props.mode ])
@@ -207,17 +234,22 @@ export default function AnalogClock(props) {
             const offset = parseFloat( window.getComputedStyle( clockFace.current, null ).getPropertyValue('font-size' ));
             const radius = Math.round(diameter- offset - offset/( diameter/2 ))/ 2;
             setRadius( radius );
-            drawClock( radius,offset );
+            drawClock( radius, offset);
         }
     },[ clockFace ])
 
     useEffect(()=>{
 
         if( digits.length > 0 && pageIsLoaded.current === false ) {
-            setPointerByIndex( getGlobalTime( props.mode ))
+
+            relocatePointerByIndex( getGlobalTime( props.mode ))
             pageIsLoaded.current = true;
         }
     },[ digits,pageIsLoaded ])
+
+    useEffect(()=>{
+        relocatePointerByIndex(pointer)
+    },[pointer])
 
     return (
         <div ref= { clockFace }
@@ -242,19 +274,17 @@ export default function AnalogClock(props) {
                                   point.placement.y +"px)"
                           }}>
                                 { props.mode === 'hours'
-                                    ? index=== 0 ? 12 : index
-                                    : index * 5
+                                    ? index === 0 ? 12 : index
+                                    : index%5 === 0 ? index :'.'
                                 }
                     </span>
                 ))
-
                 : ''
             }
-
             </div>
             <div ref ={ hand }
                  className='hand'
-                 style={{ background:`linear-gradient(250deg, ${ colors.primary } 50%, #AC6BFF00 0%)`}}
+                 style={{ background:`linear-gradient( 250deg, ${ colors.primary } 50%, #AC6BFF00 0%)`}}
             />
             <div ref ={ pointerFace }
                  onMouseDown ={ handleDrag }

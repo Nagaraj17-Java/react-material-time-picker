@@ -9,11 +9,12 @@ export class Clock{
         this.head = undefined;
         this.tail = undefined;
         this.digits = [];
+        this.numberOfUnits = undefined;
     }
     push( ) {
 
         let current;
-        if( this.count < 12 ) {
+        if( this.count < this.numberOfUnits ) {
 
             const node = new Digit();
             node.placement = this.placement( this.count );
@@ -29,7 +30,7 @@ export class Clock{
                 while ( current.next != null && current.next !== this.tail ) {
                     current = current.next;
                 }
-                if( this.count === 11 ) {
+                if( this.count === this.numberOfUnits-1 ) {
 
                     node.next = this.head;
                     this.head.prev = node;
@@ -41,12 +42,11 @@ export class Clock{
             this.count +=1;
         }
     }
-    draw( radius , offset ) {
-        const digits = [ ...Array(12).keys() ];
-        this.offset = offset;
+    draw( radius ,numberOfUnits ) {
+        this.numberOfUnits = numberOfUnits;
         this.radius = radius;
+        const digits = [ ...Array( this.numberOfUnits ).keys() ];
         digits.forEach( i =>{
-            // let p = this.placement(i);
             this.push();
         })
 
@@ -55,7 +55,8 @@ export class Clock{
 
         let current;
         this.path = []
-        current = this.getElementAt( startIdx );
+        // current = this.getElementAt( startIdx );
+        current = this.digits[startIdx];
 
         for (let i = 0 ; i < distance ; i++ ) {
 
@@ -70,7 +71,8 @@ export class Clock{
 
         let current;
         this.path = []
-        current = this.getElementAt( startIdx );
+        // current = this.getElementAt( startIdx );
+        current = this.digits[startIdx];
 
         for (let i = 0 ; i < distance ; i++ ) {
 
@@ -81,17 +83,17 @@ export class Clock{
         return this.path
     }
 
-    getElementAt( index ) {
-
-        if ( index >= 0 && index <= this.count ) {
-            let node = this.head;
-            for ( let i = 0; i < index && node != null; i++ ) {
-                node = node.next;
-            }
-            return node;
-        }
-        return undefined;
-    }
+    // getElementAt( index ) {
+    //
+    //     if ( index >= 0 && index <= this.count ) {
+    //         let node = this.head;
+    //         for ( let i = 0; i < index && node != null; i++ ) {
+    //             node = node.next;
+    //         }
+    //         return node;
+    //     }
+    //     return undefined;
+    // }
 
     getDigits() {
 
@@ -100,7 +102,7 @@ export class Clock{
 
     placement( idx ) {
 
-        if( idx < 12 ) {
+        if( idx < this.numberOfUnits ) {
 
             let angel = this.angel( idx );
 
@@ -117,14 +119,17 @@ export class Clock{
     angel (idx ) {
 
         let fullCircle = 2 * Math.PI;
-        if( idx >= 9 ) return (( idx - 3 )*( fullCircle / 12))-2 * Math.PI;
-        return ( idx - 3 )*( fullCircle / 12 );
+        if( idx >= 3*this.numberOfUnits/4 ) return (( idx - (this.numberOfUnits/4) )*( fullCircle / this.numberOfUnits))-2 * Math.PI;
+        return ( idx - (this.numberOfUnits/4) )*( fullCircle / this.numberOfUnits );
     }
     getTheClosestDigit (angel ) {
 
-        const unit = Math.PI/6;
-        const numberOfUnits = Math.round(angel / unit );
-        return ( numberOfUnits < -3 ? 15 + numberOfUnits : numberOfUnits + 3 );
+        const unitDegree = Math.PI/(this.numberOfUnits/2);
+        const distance = Math.round(angel / unitDegree );
+        return ( distance < -(this.numberOfUnits/4)
+            ? 5*(this.numberOfUnits /4) + distance
+            : distance + (this.numberOfUnits/4)
+        );
     }
 
 }
