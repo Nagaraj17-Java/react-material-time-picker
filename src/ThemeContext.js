@@ -21,7 +21,7 @@ function ThemeProvider(props){
             surface3: `linear-gradient(0deg, #FFFBFE, #FFFBFE),` +
                 `linear-gradient(0deg, rgba(103, 80, 164, 0.11), rgba(103, 80, 164, 0.11))`
 
-},
+        },
         dark: {
             primary : '#D0BCFF',
             surfaceVariant: '#49454F',

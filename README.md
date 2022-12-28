@@ -72,30 +72,46 @@ Once you have imported the component, you can use it in your app as follows:
 
 
 The "TimePicker" component needs the following variables:
-- A function for applying changes, which uses the useState hook to update the time
-- A function for hiding the modal from the page, called handleClose
-- A title that will appear at the top of the modal
-- One or more buttons that will be placed at the bottom of the modal.
+- show : A function for applying changes, which uses the useState hook to update the time
+- hide : A function for hiding the modal from the page, called handleClose
+- title : A title that will appear at the top of the modal, this variable is optional, it is 'Enter time' by default. 
+- buttons: 
   For example:
 
 ```jsx
 const App = () => {
-    return (
-        <TimePicker setTime={ setTime }
-                    time={ time }
-                    handleClose={ modalClose }
-                    title={ 'From' }
-                    buttons={<>
-                        <Button type={'text'} onClick={ handleModalBack }>
-                            Back
-                        </Button>
-                        <Button type={'text'} onClick={ handleModalSave }>
-                            Save
-                        </Button>
-                    </>}
+      return (<>
+        <button onClick={()=>setShow(true)}>
+          Click Me!
+        </button>
+        <button onClick={()=>setTheme(theme === 'dark' ? 'light': 'dark')}>
+          { theme }
+        </button>
+        { show === true
+                ? <TimePicker
+                        theme={ theme }
+                        title={ 'Time' }
+                        zIndex={ 50 }
+                        width={ 300 }
+                        onChange={ checkValidity }
+                        show={ ()=>setShow(true) }
+                        defaultValue={ '1246' }
+                        hide={ ()=>setShow(false) }
+                        buttons={[
+                          {
+                            label:'Cancel',
+                            onClick: ()=>setShow(false)
+                          },
+                          {
+                            label:'Save',
+                            onClick: ()=>alert('Saved!')
+                          }
+                        ]}
+                />
+                : ''
+        }
     
-        />
-    );
+      </>)
 };
 ```
 
@@ -107,8 +123,28 @@ TimePicker has the following props:
 - `title`: The title that will be displayed at the top of the TimePicker modal.
 - `setTime`: A callback function that will be called whenever the selected time is changed. The callback function will receive the new time as its only argument.
 - `time`: The variable which keeps the time
-- `handleClose`: A function for hiding the modal from the page
-- `buttons`: One or more buttons that will be placed at the bottom of the modal.
+- `hide`: A function for hiding the modal from the page
+- `buttons`: An array including One or more buttons that will be placed at the bottom of the modal. These button objects must include function which will trigger after clicking on the button named 'onClick',and the label of the button named 'label'.
+- `onChange`: Is a function which gets the updated time value in every change happening.
+- `defaultValue`: Is an optional value of time at the beginning in form of a 4 characters string.
+- `theme` : Which can have two values of 'light' or 'dark'. This variable has set 'light' by default.
+- `colors`: An object including two possible theme light and dark
+### Colors variables
+Each of the objects in the light and dark modes must include the following variables:
+- primary: a CSS color value that represents the primary color of the theme 
+- surfaceVariant: a CSS color value that represents the surface variant color of the theme 
+- onSurfaceVariant: a CSS color value that represents the color of text or other elements on top of the surface variant color
+- surface: a CSS color value that represents the surface color of the theme
+- onSurface: a CSS color value that represents the color of text or other elements on top of the surface color
+- outline: a CSS color value that represents the outline color of the theme
+- scrim: a CSS color value that represents the scrim color of the theme
+- tertiaryContainer: a CSS color value that represents the tertiary container color of the theme
+- onPrimary: a CSS color value that represents the color of text or other elements on top of the primary color
+- errorContainer: a CSS color value that represents the error container color of the theme
+- primaryContainer: a CSS color value that represents the primary container color of the theme
+- onPrimaryContainer: a CSS color value that represents the color of text or other elements on top of the primary container color
+- error: a CSS color value that represents the error color of the theme
+- surface3: a CSS color value that represents the surface3 color of the theme, which is a linear gradient combining the surface color and a semi-transparent variant of the primary color.
 
 ## Programming Paradigms
 This program is designed based on objective-oriented programming, with classes and objects representing the various components of our system, and uses some concepts like inheritance and encapsulation 
