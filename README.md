@@ -4,9 +4,9 @@ TimePicker is a user interface component that allows the user to easily select a
 
 ## Features
 
-- The user can enter the number either using the keyboard or using the analog clock.
+- The user can enter the number either using the keyboard or using the mouse/pointer on the analog clock.
 - The clock React component is responsive and works well on different devices and screen sizes. The clock adjusts its layout on different devices and screen sizes.
-- The clock's appearance is based on Material design v3 with more features to make the better user experience on selecting time.
+- The clock's appearance is based on Material design v3 with more features to improve the user experience for time input.
 - The user can pick a time by either clicking on a number or dragging the clock hand.
 - When the user clicks on a number the clock hand is designed to smoothly move towards it, and uses a function named “shortestPath” to find the shortest path. ( moves clockwise or counterclockwise ).
 - When the user releases the clock hand after dragging it to select a time, it will snap to the nearest number using a function named “getTheClosestDigit”.
@@ -141,5 +141,4 @@ Each of the objects in the light and dark modes must include the following varia
 - `error`: a CSS color value that represents the error color of the theme
 - `surface3`: a CSS color value that represents the surface3 color of the theme, which is a linear gradient combining the surface color and a semi-transparent variant of the primary color.
 
-## Programming Paradigms
-This program is designed based on objective-oriented programming, with classes and objects representing the various components of our system, and uses some concepts like inheritance and encapsulation 
+
