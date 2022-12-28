@@ -19,7 +19,7 @@ The algorithm used for finding the closest digit to where the user has released 
 
 ```javascript
 
-getTheClosestDigit (angel ){
+function getTheClosestDigit (angel ){
 
   const unitDegree = Math.PI/( this.numberOfUnits/2 );
   const distance = Math.round(angel / unitDegree );
@@ -54,64 +54,56 @@ function shortestPath( start,dest ) {
 }
 ```
 
-
 ## Installation
 
 To install TimePicker, run the following command:
 
-
+npm install react-material-time-picker
 
 ## Usage
 
 To use TimePicker in your React application, import the TimePicker component and use it in your JSX code:
 
-
-import TimePicker from 'material-timepicker';
+import TimePicker from 'react-material-time-picker';
 
 Once you have imported the component, you can use it in your app as follows:
 
-
-The "TimePicker" component needs the following variables:
-- show : A function for applying changes, which uses the useState hook to update the time
-- hide : A function for hiding the modal from the page, called handleClose
-- title : A title that will appear at the top of the modal, this variable is optional, it is 'Enter time' by default. 
-- buttons: 
-  For example:
-
 ```jsx
 const App = () => {
-      return (<>
-        <button onClick={()=>setShow(true)}>
-          Click Me!
-        </button>
-        <button onClick={()=>setTheme(theme === 'dark' ? 'light': 'dark')}>
-          { theme }
-        </button>
-        { show === true
-                ? <TimePicker
-                        theme={ theme }
-                        title={ 'Time' }
-                        zIndex={ 50 }
-                        width={ 300 }
-                        onChange={ checkValidity }
-                        show={ ()=>setShow(true) }
-                        defaultValue={ '1246' }
-                        hide={ ()=>setShow(false) }
-                        buttons={[
-                          {
-                            label:'Cancel',
-                            onClick: ()=>setShow(false)
-                          },
-                          {
-                            label:'Save',
-                            onClick: ()=>alert('Saved!')
-                          }
-                        ]}
-                />
-                : ''
-        }
-    
-      </>)
+    const [ show,setShow ] = useState(false);
+    const [ theme,setTheme ] = useState('light');
+    return (<>
+      <button onClick={()=>setShow(true)}>
+        Click Me!
+      </button>
+      <button onClick={()=>setTheme(theme === 'dark' ? 'light': 'dark')}>
+        { theme }
+      </button>
+      { show === true
+              ? <TimePicker
+                      theme={ theme }
+                      title={ 'Time' }
+                      zIndex={ 50 }
+                      width={ 400 }
+                      onChange={ checkValidity }
+                      show={ ()=>setShow(true) }
+                      defaultValue={ '1246' }
+                      hide={ ()=>setShow(false) }
+                      buttons={[
+                        {
+                          label:'Cancel',
+                          onClick: ()=>setShow(false)
+                        },
+                        {
+                          label:'Save',
+                          onClick: ()=>alert('Saved!')
+                        }
+                      ]}
+              />
+              : ''
+      }
+  
+    </>)
 };
 ```
 
@@ -121,15 +113,18 @@ const App = () => {
 TimePicker has the following props:
 
 - `title`: The title that will be displayed at the top of the TimePicker modal.
-- `setTime`: A callback function that will be called whenever the selected time is changed. The callback function will receive the new time as its only argument.
-- `time`: The variable which keeps the time
 - `hide`: A function for hiding the modal from the page
+- `show`: A function for showing the modal from the page
 - `buttons`: An array including One or more buttons that will be placed at the bottom of the modal. These button objects must include function which will trigger after clicking on the button named 'onClick',and the label of the button named 'label'.
-- `onChange`: Is a function which gets the updated time value in every change happening.
+- `onChange`: Is a function which takes the updated time value in every changes happening.
 - `defaultValue`: Is an optional value of time at the beginning in form of a 4 characters string.
 - `theme` : Which can have two values of 'light' or 'dark'. This variable has set 'light' by default.
-- `colors`: An object including two possible theme light and dark
-### Colors variables
+- `zIndex`: Is an optional variable for z-index of the modal which by default is on '1001'
+- `width`: Is an optional variable for the width size of the modal, min-width by default is 350 px
+- `colors`: An optional variable in form of an object including two possible theme light and dark, which by default is on 'light' mode
+
+### Colors Variables
+
 Each of the objects in the light and dark modes must include the following variables:
 - primary: a CSS color value that represents the primary color of the theme 
 - surfaceVariant: a CSS color value that represents the surface variant color of the theme 

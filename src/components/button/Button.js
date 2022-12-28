@@ -18,18 +18,15 @@ export default function Button(props) {
     const styles = {
         outline : {
             default:{
-                border: `1px solid ${ colors.outline }`,
-                color : colors.primary,
+
                 backgroundColor:'transparent'
             },
             hovered:{
-                border: `1px solid ${ colors.outline }`,
-                color : colors.primary,
+
                 backgroundColor:`rgba(${ formatColor(colors.primary) }, .08)` ,
             },
             activated:{
-                color : colors.primary,
-                border: `1px solid ${ colors.outline }`,
+
                 backgroundColor:`rgba(${ formatColor(colors.primary) }, .12)` ,
             }
         },
@@ -40,15 +37,11 @@ export default function Button(props) {
                 border: 'none',
             },
             hovered:{
-                color : colors.onPrimary,
-                backgroundColor: colors.primary,
-                border: 'none',
+
                 boxShadow: '0px 1px 3px 1px rgba(0, 0, 0, 0.15),0px 1px 2px 0px rgba(0, 0, 0, 0.3)',
             },
             activated:{
-                color : colors.onPrimary,
-                backgroundColor: colors.primary,
-                border: 'none',
+
                 boxShadow: 'none'
             }
         },
@@ -58,17 +51,17 @@ export default function Button(props) {
                 backgroundColor: 'transparent',
             },
             hovered:{
-                color : colors.primary,
+
                 backgroundColor:`rgba(${ formatColor(colors.primary) }, .08)` ,
             },
             activated: {
-                color : colors.primary,
+
                 backgroundColor:`rgba(${ formatColor(colors.primary) }, .12)` ,
             }
         }
     }
 
-    let buttonStyle = {...styles[ props.type ][state]};
+    let buttonStyle = {...styles[ props.type ]['default'],...styles[props.type][state]};
 
     const handleClick =(e)=>{
         e.stopPropagation();

@@ -23,7 +23,7 @@ function ActualTimePicker( props ) {
     useEffect(()=>{
         if( typeof props.colors !== "undefined"){
             setColors (props.colors)
-            setTheme('light');
+            setTheme( props.theme || 'light' );
         }
 
     },[ props.colors ])
@@ -65,7 +65,7 @@ function ActualTimePicker( props ) {
                                       setDayMode={ setDayMode }
                         />
                         { clockDisplay === true
-                            ? <AnalogClock  time={time}
+                            ? <AnalogClock  time={ time }
                                             dayMode={ dayMode }
                                             onChange={ setTime }
                                             mode={ mode }
