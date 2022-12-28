@@ -1,0 +1,61 @@
+
+//$surface: #FFFBFE;
+//$error : #B3261E;
+//$error-container: #F9DEDC;
+//$primary: #6750A4;
+//$surface-variant:rgba(231, 224, 236, 1);
+//$on-surface-variant: #49454F;
+//$tertiary-container:#FFD8E4;
+//$outline: #79747E;
+//$on-primary: #ffffff;
+$font-family : Roboto,-apple-system, Ubuntu, arial;
+@mixin font-body-medium{
+  font-family: $font-family;
+  font-size: 0.875em;
+  font-style: normal;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+  text-align:center;
+}
+@mixin font-body-small {
+  font-family: $font-family;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.4000000059604645px;
+  text-align: left;
+}
+@mixin font-display-medium{
+  font-family: $font-family;
+  font-size: 45px;
+  font-weight: 400;
+  line-height: 52px;
+  letter-spacing: 0;
+  text-align: center;
+
+}
+@mixin font-title-medium{
+  font-family: $font-family;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.15px;
+  text-align:left;
+}
+@mixin font-label-large {
+  font-family: $font-family;
+  font-size: 14px;
+  font-weight: 500;
+  font-style: normal;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+  align-content: center;
+}
+@mixin font-body-large{
+  font-family: $font-family;
+  font-size: 1em;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.5px
+}
