@@ -81,7 +81,8 @@ function ActualTimePicker( props ) {
                                 : <KeyBoardIcon onClick={ ()=> setClockDisplay(false)}/>
                             }
                             { props.buttons.map(x=>
-                                <Button type='text'
+                                <Button key={x.label}
+                                    type='text'
                                         click={ x.onClick }
                                 >
                                     { x.label }

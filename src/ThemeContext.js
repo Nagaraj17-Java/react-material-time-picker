@@ -18,8 +18,8 @@ function ThemeProvider(props){
             primaryContainer: '#EADDFF',
             onPrimaryContainer: '#21005D',
             error : '#B3261E',
-            surface3: 'linear-gradient(0deg, #FFFBFE, #FFFBFE),' +
-                'linear-gradient(0deg, rgba(103, 80, 164, 0.11), rgba(103, 80, 164, 0.11))'
+            surface3: `linear-gradient(0deg, #FFFBFE, #FFFBFE),` +
+                `linear-gradient(0deg, rgba(103, 80, 164, 0.11), rgba(103, 80, 164, 0.11))`
 
 },
         dark: {

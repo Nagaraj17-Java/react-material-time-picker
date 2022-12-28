@@ -28,11 +28,11 @@
   }
   .test {
     position: absolute;
-    background-color: $surface-variant;
+    //background-color: $surface-variant;
     border-radius: 500px;
   }
   .selected{
-    color: $on-primary;
+    //color: $on-primary;
     transition: all 0.5s ease-in;
   }
   .center{

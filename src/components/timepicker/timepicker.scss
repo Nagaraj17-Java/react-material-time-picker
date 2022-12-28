@@ -41,18 +41,10 @@
     grid-template-columns: 1fr auto ;
 
   }
-  //.inp-deactive{
-  //  pointer-events: none;
-  //}
   .msg {
     @include font-body-small;
     align-self: end;
     margin: 1em 0;
-    color: $error;
   }
 
-  //.btns{
-  //  display: grid;
-  //  grid-auto-flow: column;
-  //}
 }
