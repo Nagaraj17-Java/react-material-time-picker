@@ -80,14 +80,16 @@ function ActualTimePicker( props ) {
                                 ? <ClockIcon onClick={ ()=> setClockDisplay(true) }/>
                                 : <KeyBoardIcon onClick={ ()=> setClockDisplay(false)}/>
                             }
-                            { props.buttons.map(x=>
-                                <Button key={x.label}
-                                    type='text'
-                                        click={ x.onClick }
-                                >
-                                    { x.label }
-                                </Button>
-                            ) }
+                            <div id='btns'>
+                                { props.buttons.map(x=>
+                                    <Button key={x.label}
+                                            type='text'
+                                            click={ x.onClick }
+                                    >
+                                        { x.label }
+                                    </Button>
+                                ) }
+                            </div>
                         </div>
                     </Modal>
             </div>

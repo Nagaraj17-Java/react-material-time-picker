@@ -1,6 +1,6 @@
 import './button.scss'
 import {useTheme} from "../../ThemeContext.js";
-import {useEffect, useRef, useState} from "react";
+import {useRef, useState} from "react";
 import {hexToRGB} from '../../utilities.js'
 
 export default function Button(props) {
@@ -17,21 +17,46 @@ export default function Button(props) {
 
     const styles = {
         outline : {
-            border: `2px solid ${ colors.outline }`,
-            color : colors.primary
+            default:{
+                border: `1px solid ${ colors.outline }`,
+                color : colors.primary,
+                backgroundColor:'transparent'
+            },
+            hovered:{
+                border: `1px solid ${ colors.outline }`,
+                color : colors.primary,
+                backgroundColor:`rgba(${ formatColor(colors.primary) }, .08)` ,
+            },
+            activated:{
+                color : colors.primary,
+                border: `1px solid ${ colors.outline }`,
+                backgroundColor:`rgba(${ formatColor(colors.primary) }, .12)` ,
+            }
         },
         filled : {
-            color : colors.onPrimary,
-            backgroundColor: colors.primary,
-            border: 'none',
+            default: {
+                color : colors.onPrimary,
+                backgroundColor: colors.primary,
+                border: 'none',
+            },
+            hovered:{
+                color : colors.onPrimary,
+                backgroundColor: colors.primary,
+                border: 'none',
+                boxShadow: '0px 1px 3px 1px rgba(0, 0, 0, 0.15),0px 1px 2px 0px rgba(0, 0, 0, 0.3)',
+            },
+            activated:{
+                color : colors.onPrimary,
+                backgroundColor: colors.primary,
+                border: 'none',
+                boxShadow: 'none'
+            }
         },
         text : {
             default:{
                 color : colors.primary,
                 backgroundColor: 'transparent',
-
             },
-
             hovered:{
                 color : colors.primary,
                 backgroundColor:`rgba(${ formatColor(colors.primary) }, .08)` ,
@@ -42,6 +67,7 @@ export default function Button(props) {
             }
         }
     }
+
     let buttonStyle = {...styles[ props.type ][state]};
 
     const handleClick =(e)=>{

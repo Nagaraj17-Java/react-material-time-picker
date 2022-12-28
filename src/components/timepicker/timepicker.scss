@@ -30,6 +30,7 @@
 
 
   .footer{
+
     svg{
       width: 1.5em;
       cursor: pointer;
@@ -45,6 +46,12 @@
     @include font-body-small;
     align-self: end;
     margin: 1em 0;
+  }
+  #btns{
+
+    display: grid;
+    grid-auto-flow: column;
+    grid-gap: .5em;
   }
 
 }
