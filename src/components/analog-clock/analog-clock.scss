@@ -2,7 +2,8 @@
 .clock {
 
   margin:2em auto;
-  max-width: 80%;
+  max-width: 450px;
+  min-width: 350px;
 
   &:before{
     content: '';
@@ -11,7 +12,6 @@
     display: block;
 
   }
-  //width: 100%;
   box-sizing: border-box;
   border-radius: 500px;
   @include font-body-large;
@@ -28,11 +28,9 @@
   }
   .test {
     position: absolute;
-    //background-color: $surface-variant;
     border-radius: 500px;
   }
   .selected{
-    //color: $on-primary;
     transition: all 0.5s ease-in;
   }
   .center{
@@ -58,9 +56,9 @@
     justify-content: center;
     align-items: center;
 
-    background-color: #6750A4;
+    //background-color: #6750A4;
     border-radius: 100px;
-    color: white;
+    //color: white;
 
     text-align: center;
     cursor: move;

@@ -58,7 +58,7 @@ function shortestPath( start,dest ) {
 
 To install TimePicker, run the following command:
 
-npm install react-material-time-picker
+`npm install react-material-time-picker`
 
 ## Usage
 
@@ -120,26 +120,26 @@ TimePicker has the following props:
 - `defaultValue`: Is an optional value of time at the beginning in form of a 4 characters string.
 - `theme` : Which can have two values of 'light' or 'dark'. This variable has set 'light' by default.
 - `zIndex`: Is an optional variable for z-index of the modal which by default is on '1001'
-- `width`: Is an optional variable for the width size of the modal, min-width by default is 350 px
+- `width`: Is an optional variable for the width size of the modal
 - `colors`: An optional variable in form of an object including two possible theme light and dark, which by default is on 'light' mode
 
-### Colors Variables
+### `Colors` Variables
 
 Each of the objects in the light and dark modes must include the following variables:
-- primary: a CSS color value that represents the primary color of the theme 
-- surfaceVariant: a CSS color value that represents the surface variant color of the theme 
-- onSurfaceVariant: a CSS color value that represents the color of text or other elements on top of the surface variant color
-- surface: a CSS color value that represents the surface color of the theme
-- onSurface: a CSS color value that represents the color of text or other elements on top of the surface color
-- outline: a CSS color value that represents the outline color of the theme
-- scrim: a CSS color value that represents the scrim color of the theme
-- tertiaryContainer: a CSS color value that represents the tertiary container color of the theme
-- onPrimary: a CSS color value that represents the color of text or other elements on top of the primary color
-- errorContainer: a CSS color value that represents the error container color of the theme
-- primaryContainer: a CSS color value that represents the primary container color of the theme
-- onPrimaryContainer: a CSS color value that represents the color of text or other elements on top of the primary container color
-- error: a CSS color value that represents the error color of the theme
-- surface3: a CSS color value that represents the surface3 color of the theme, which is a linear gradient combining the surface color and a semi-transparent variant of the primary color.
+- `primary`: a CSS color value that represents the primary color of the theme 
+- `surfaceVariant`: a CSS color value that represents the surface variant color of the theme 
+- `onSurfaceVariant`: a CSS color value that represents the color of text or other elements on top of the surface variant color
+- `surface`: a CSS color value that represents the surface color of the theme
+- `onSurface`: a CSS color value that represents the color of text or other elements on top of the surface color
+- `outline`: a CSS color value that represents the outline color of the theme
+- `scrim`: a CSS color value that represents the scrim color of the theme
+- `tertiaryContainer`: a CSS color value that represents the tertiary container color of the theme
+- `onPrimary`: a CSS color value that represents the color of text or other elements on top of the primary color
+- `errorContainer`: a CSS color value that represents the error container color of the theme
+- `primaryContainer`: a CSS color value that represents the primary container color of the theme
+- `onPrimaryContainer`: a CSS color value that represents the color of text or other elements on top of the primary container color
+- `error`: a CSS color value that represents the error color of the theme
+- `surface3`: a CSS color value that represents the surface3 color of the theme, which is a linear gradient combining the surface color and a semi-transparent variant of the primary color.
 
 ## Programming Paradigms
 This program is designed based on objective-oriented programming, with classes and objects representing the various components of our system, and uses some concepts like inheritance and encapsulation 

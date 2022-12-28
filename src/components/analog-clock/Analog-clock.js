@@ -248,9 +248,10 @@ export default function AnalogClock(props) {
     return (
         <div ref= { clockFace }
              className='clock'
-             style={{   background:colors.surfaceVariant ,
-                        color: colors.onSurfaceVariant,
-                        maxWidth: props.width <= 350 ? '80%' : '60%', //todo
+             style={{
+                 background:colors.surfaceVariant ,
+                 color: colors.onSurfaceVariant,
+                 width: props.width
                 }}
         >
             <div className='center'

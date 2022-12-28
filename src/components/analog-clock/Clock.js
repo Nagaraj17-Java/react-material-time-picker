@@ -103,16 +103,16 @@ export class Clock{
     angel (idx ) {
 
         let fullCircle = 2 * Math.PI;
-        if( idx >= 3*this.numberOfUnits/4 ) return (( idx - (this.numberOfUnits/4) )*( fullCircle / this.numberOfUnits))-2 * Math.PI;
-        return ( idx - (this.numberOfUnits/4) )*( fullCircle / this.numberOfUnits );
+        if( idx >= 3*this.numberOfUnits/4 ) return (( idx - ( this.numberOfUnits/4 ) )*( fullCircle / this.numberOfUnits ))-2 * Math.PI;
+        return ( idx - ( this.numberOfUnits/4 ) )*( fullCircle / this.numberOfUnits );
     }
     getTheClosestDigit (angel ) {
 
-        const unitDegree = Math.PI/(this.numberOfUnits/2);
-        const distance = Math.round(angel / unitDegree );
-        return ( distance < -(this.numberOfUnits/4)
-            ? 5*(this.numberOfUnits /4) + distance
-            : distance + (this.numberOfUnits/4)
+        const unitDegree = Math.PI/( this.numberOfUnits/2 );
+        const distance = Math.round( angel / unitDegree );
+        return ( distance < -( this.numberOfUnits/4 )
+            ? 5*( this.numberOfUnits /4 ) + distance
+            : distance + ( this.numberOfUnits/4 )
         );
     }
 
