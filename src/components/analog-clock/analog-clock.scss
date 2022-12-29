@@ -55,17 +55,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
-    //background-color: #6750A4;
     border-radius: 100px;
-    //color: white;
-
     text-align: center;
     cursor: move;
 
   }
 
-  #digits-clockFace {
+  .digits-clockFace {
     position: absolute;
     top: 0;
     left: 0;

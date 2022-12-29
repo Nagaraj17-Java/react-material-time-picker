@@ -1,4 +1,4 @@
-import {useEffect, useMemo, useRef, useState} from "react";
+import React, {useEffect, useMemo, useRef, useState} from "react";
 import {Clock} from "./Clock.js";
 import {decode,normalize} from "../../utilities.js";
 import"./analog-clock.scss"
@@ -12,6 +12,7 @@ export default function AnalogClock(props) {
     let animationId = 0;
     const clockPos = clockFace.current?.getBoundingClientRect() || { left:0, top:0 };
     const pointerFace = useRef();
+    const digitsClockFace = useRef();
     const hoursClockFace = useMemo(()=>{ return new Clock()},[]);
     const minutesClockFace = useMemo(()=>{ return new Clock()},[]);
     const [ hoursDigits, setHoursDigits ] = useState([]);
@@ -26,7 +27,57 @@ export default function AnalogClock(props) {
     const setPointer = props.mode === 'hours' ? setHoursPointerDigit : setMinutesPointerDigit;
     let clock = props.mode === 'hours' ? hoursClockFace : minutesClockFace;
 
-    function handleAnimatedRelocation( destIdx ) {
+    const angelToPos= React.useCallback( radian =>{
+
+        return {
+            x: Math.round( Math.cos( radian )* radius),
+            y: Math.round( Math.sin( radian )* radius)
+        }
+    },[radius])
+
+    const relocatePointerByAngel=React.useCallback( (angel,pointPlacement=null,value=null) => {
+
+        const degree = radToDegree( angel );
+        if( pointPlacement === null ) pointPlacement = angelToPos( angel,radius );
+        if( value === null) value = pointer;
+
+        pointerFace.current.style.transform = "translate("+ pointPlacement.x+"px,"+ pointPlacement.y+"px)";
+        pointerFace.current.innerHTML = props.mode === 'hours'
+            ? value === 0 ? 12 : value
+            : value;
+
+        hand.current.style.transform = "rotate("+degree+"deg)"
+    },[angelToPos,pointer,props.mode,radius])
+
+    const relocatePointerByIndex = React.useCallback( idx =>{
+
+        if( digits.length === 0) return;
+        let point = digits[ idx ].placement;
+        const rad = clock.angel( idx );
+        relocatePointerByAngel( rad,point,idx )
+    },[clock,digits,relocatePointerByAngel])
+
+    const shortestPath= React.useCallback( (start,dest) => {
+        let path;
+        let difference = dest - start;
+        let distance;
+
+        const fullClock = (props.mode === 'minutes' ? 60 : 12)
+
+        if( ( difference > 0 && difference < fullClock/2 ) || fullClock - start + dest <= fullClock/2) {
+
+            distance = difference > 0 ? difference : fullClock - start + dest;
+            path = clock.goClockwise( start, distance )
+        } else {
+
+            distance = Math.abs (dest - start) >= fullClock/2 ? fullClock - dest+ start : start - dest;
+            path = clock.goCounterClockwise( start, distance )
+        }
+
+        return path;
+    },[props.mode,clock])
+
+    const handleAnimatedRelocation = React.useCallback( destIdx =>{
 
         const start = props.mode === 'hours' ? pointer%12 : pointer;
         const path = shortestPath( start , destIdx );
@@ -47,29 +98,10 @@ export default function AnalogClock(props) {
         }
         loop(0);
 
-    }
+    },[pointer,props.mode,relocatePointerByIndex,setPointer,shortestPath])
 
-    function shortestPath( start,dest ) {
-        let path;
-        let difference = dest - start;
-        let distance;
 
-        const fullClock = (props.mode === 'minutes' ? 60 : 12)
-
-        if( ( difference > 0 && difference < fullClock/2 ) || fullClock - start + dest <= fullClock/2) {
-
-            distance = difference > 0 ? difference : fullClock - start + dest;
-            path = clock.goClockwise( start, distance )
-        } else {
-
-            distance = Math.abs (dest - start) >= fullClock/2 ? fullClock - dest+ start : start - dest;
-            path = clock.goCounterClockwise( start, distance )
-        }
-
-        return path;
-    }
-
-    function drawClock (radius,offset) {
+    const drawClock = React.useCallback( (radius,offset)=> {
 
         hoursClockFace.draw( radius , 12);
         minutesClockFace.draw( radius , 60);
@@ -77,8 +109,8 @@ export default function AnalogClock(props) {
         setHoursDigits( hoursClockFace.getDigits() );
         setMinutesDigits( minutesClockFace.getDigits() );
 
-        const clockFaceElement = document.getElementById('digits-clockFace');
-        const pointerElement = document.getElementById('pointer');
+        const clockFaceElement = digitsClockFace.current;
+        const pointerElement = pointerFace.current;
 
         pointerElement.style.width = offset * 3+'px';
         pointerElement.style.height = offset * 3+'px';
@@ -88,7 +120,7 @@ export default function AnalogClock(props) {
 
         clockFaceElement.style.transform = 'translate('+radius+'px,'+radius+'px)'
 
-    }
+    },[hoursClockFace,minutesClockFace])
 
     function radToDegree (rad) {
 
@@ -154,36 +186,6 @@ export default function AnalogClock(props) {
         return posFromParent;
     }
 
-    function angelToPos ( radian ) {
-
-        return {
-            x: Math.round( Math.cos( radian )* radius),
-            y: Math.round( Math.sin( radian )* radius)
-        }
-    }
-
-    function relocatePointerByAngel( angel,pointPlacement=null,value=null ) {
-
-        const degree = radToDegree( angel );
-        if( pointPlacement === null ) pointPlacement = angelToPos( angel,radius );
-        if( value === null) value = pointer;
-
-        pointerFace.current.style.transform = "translate("+ pointPlacement.x+"px,"+ pointPlacement.y+"px)";
-        pointerFace.current.innerHTML = props.mode === 'hours'
-            ? value === 0 ? 12 : value
-            : value;
-
-        hand.current.style.transform = "rotate("+degree+"deg)"
-    }
-
-    function relocatePointerByIndex( idx ) {
-
-        if( digits.length === 0) return;
-        let point = digits[ idx ].placement;
-        const rad = clock.angel( idx );
-        relocatePointerByAngel( rad,point,idx )
-    }
-
     function handleAutoRelocate( index ) {
 
         handleAnimatedRelocation( index );
@@ -201,13 +203,13 @@ export default function AnalogClock(props) {
         )
     }
 
-    function getGlobalTime( mode ) {
+    const getGlobalTime=React.useCallback( mode =>{
 
         const time = decode( props.time );
         return mode === 'hours'
             ? parseInt( time.hour%12 )
             : parseInt( time.minute );
-    }
+    },[props.time])
 
     useEffect(()=>{
 
@@ -218,7 +220,7 @@ export default function AnalogClock(props) {
                 handleAnimatedRelocation( digit );
             }
         }
-    },[ props.time,props.mode ])
+    },[ props.time,props.mode, digits.length,getGlobalTime,handleAnimatedRelocation,pointer])
 
     useEffect(()=>{
 
@@ -230,7 +232,7 @@ export default function AnalogClock(props) {
             setRadius( radius );
             drawClock( radius, offset);
         }
-    },[ clockFace ])
+    },[ clockFace,drawClock ])
 
     useEffect(()=>{
 
@@ -239,14 +241,14 @@ export default function AnalogClock(props) {
             relocatePointerByIndex( getGlobalTime( props.mode ))
             pageIsLoaded.current = true;
         }
-    },[ digits,pageIsLoaded ])
+    },[ digits,pageIsLoaded,getGlobalTime,relocatePointerByIndex,props.mode ])
 
     useEffect(()=>{
         relocatePointerByIndex(pointer)
-    },[ pointer ])
+    },[ pointer,relocatePointerByIndex ])
 
     return (
-        <div ref= { clockFace }
+        <div ref={ clockFace }
              className='clock'
              style={{
                  background:colors.surfaceVariant ,
@@ -258,7 +260,7 @@ export default function AnalogClock(props) {
                  style={{ backgroundColor:colors.primary }}
             />
 
-            <div id='digits-clockFace'>
+            <div className='digits-clockFace' ref={digitsClockFace}>
             { Object.values( digits ).length > 0
 
                 ? Object.values( digits ).map(( point,index)=>(
@@ -278,17 +280,17 @@ export default function AnalogClock(props) {
                 : ''
             }
             </div>
-            <div ref ={ hand }
+            <div
+                ref={ hand }
                  className='hand'
                  style={{ background:`linear-gradient( 250deg, ${ colors.primary } 50%, #AC6BFF00 0%)`}}
             />
-            <div ref ={ pointerFace }
-                 onMouseDown ={ handleDrag }
-                 className ='pointer'
+            <div ref={ pointerFace }
+                 onMouseDown={ handleDrag }
+                 className='pointer'
                  style={{ backgroundColor:colors.primary,
                         color:colors.onPrimary
                     }}
-                 id = 'pointer'
             />
         </div>)
 }

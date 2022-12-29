@@ -1,5 +1,4 @@
 import {useTheme} from "../../ThemeContext.js";
-import {useEffect, useState} from "react";
 import './input.scss'
 
 const Input = (props) => {
@@ -20,23 +19,21 @@ const Input = (props) => {
             border: `2px solid ${colors.primary}`
         }
     };
-    const [ currentStyle, setCurrentStyle ] = useState(styles.default);
 
-    useEffect(()=>{
-        if(typeof props.error !== 'undefined' ){
-            if( props.error === true) setCurrentStyle( styles.warning )
-        }
-    },[props.error])
 
-    useEffect(()=>{
-        if( props.active === true ) {
-            setCurrentStyle( styles.focused )
+    // useEffect(()=>{
+    //     if(!!props.active) {
+    //         if(props.error){
+    //             setCurrentStyle(styles.warning);
+    //         }else{
+    //             setCurrentStyle(styles.focused)
+    //         }
+    //     }else{
+    //         setCurrentStyle(styles.default);
+    //     }
+    // },[props.active, props.error,props.warning,setCurrentStyle, styles])
 
-        }else if( props.active === false ){
-            setCurrentStyle( styles.default )
-
-        }
-    },[ props.active,colors ])
+    const currentStyle = props.active ? (props.error ? styles.warning : styles.focused) : styles.default;
 
     return (
         <input value={ props.value }

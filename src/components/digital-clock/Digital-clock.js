@@ -13,36 +13,37 @@ export default function DigitalClock( props ) {
     const dayMode = props.dayMode;
 
     function handleTimeChange(e,mode) {
-
-        if( isNaN( e.target.value) ) {
+        const inputNumericValue = parseInt(e.target.value);
+        if( isNaN(inputNumericValue) ) {
 
             setMsg( 'Entered value can be only a number.');
             ( mode === 'hours' ? setInpHoursError(true) : setInpMinutesError(true))
             return;
         }
         if( mode === 'hours') {
-
+            setInpHoursError(false)
             const minutesVal = decode( props.time || 0).minute;
             const maxHour = (dayMode === 'pm' ? 23 : 11);
 
-            if ( e.target.value > maxHour ) {
+            if ( inputNumericValue > maxHour ) {
 
                 setMsg(`Hours has to be less than ${ dayMode === 'pm' ? 24 : 12 } in ${ dayMode.toUpperCase() } mode.`)
                 setInpHoursError(true);
             }
 
-            const val = normalize( Math.min( parseInt(e.target.value), maxHour ) )
+            const val = normalize( Math.min( inputNumericValue, maxHour ) )
             props.onChange(`${ val }${ minutesVal }`)
 
         } else {
+            setInpMinutesError(false)
             const maxMinutes = 59;
-            if (e.target.value > maxMinutes) {
+            if (inputNumericValue > maxMinutes) {
 
                 setMsg('Minutes cant be greater than 60!')
                 setInpMinutesError(true);
             }
 
-            const minutesVal = normalize( Math.min( parseInt(e.target.value), maxMinutes ) )
+            const minutesVal = normalize( Math.min(inputNumericValue, maxMinutes ) )
             props.onChange(`${ decode( props.time || 0).hour}${ minutesVal }`)
 
         }
@@ -66,13 +67,16 @@ export default function DigitalClock( props ) {
         props.onChange( `${ hourValue }${ time.minute }` )
     }
 
-    return (<><div id='digital-clock-component'>
+    return (<><div className='digital-clock-component'>
             <div className= 'inps-container'>
                 <Input value={ normalize( decode( props.time || 0).hour%12) }
                        onChange={ e => handleTimeChange( e,'hours' ) }
                        onClick={ ()=> props.setMode( 'hours' ) }
                        className={ props.className }
-                       onBlur={ ()=>setMsg('') }
+                       onBlur={ ()=> {
+                           setMsg('');
+                           setInpHoursError(false);
+                       } }
                        error={ inpHoursError }
                        active = {props.mode === 'hours'}
                 />
@@ -86,7 +90,10 @@ export default function DigitalClock( props ) {
                        onChange={ e => handleTimeChange( e,'minutes') }
                        onClick={ ()=> props.setMode( 'minutes' ) }
                        className={ props.className }
-                       onBlur={ ()=>setMsg('') }
+                       onBlur={ ()=> {
+                           setMsg('');
+                           setInpMinutesError(false);
+                       } }
                        error={ inpMinutesError }
                        active = { props.mode === 'minutes' }
                 />

@@ -26,17 +26,19 @@ function ActualTimePicker( props ) {
             setTheme( props.theme || 'light' );
         }
 
-    },[ props.colors ])
+    },[ props.colors,setTheme,setColors,props.theme ])
 
     useEffect(()=>{
         if( typeof props.theme !== "undefined") setTheme( props.theme )
 
-    },[ props.theme ])
+    },[ props.theme,setTheme ])
 
     useEffect(()=>{
-        if( typeof time !== 'undefined')props.onChange( time  )
+        if( typeof time !== 'undefined') {
+            props.onChange( time  )
+        }
 
-    },[ time ])
+    },[ time,props ])
 
     useEffect( ()=>{
         if( typeof props.defaultValue !== "undefined"){
@@ -45,7 +47,7 @@ function ActualTimePicker( props ) {
             if(decode( props.defaultValue ).hour >= 12) setDayMode('pm')
             else setDayMode('am')
         }
-    },[ props.defaultValue ])
+    },[ props.defaultValue,setDayMode ])
 
     return (
             <div className='time-picker-component' >
