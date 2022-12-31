@@ -1,11 +1,11 @@
 import React, {useEffect, useMemo, useRef, useState,useCallback} from "react";
 import {Clock} from "./Clock.js";
 import {decode,normalize} from "../../utilities.js";
-import"./analog-clock.scss"
+import"./analog.scss"
 import {useTheme} from "../../ThemeContext.js";
 // import {angelToPos,getAngel,radToDegree} from "./analogClockHandy.js";
 
-export default function AnalogClock(props) {
+export default function Analog(props) {
 
     const clockFace = useRef();
     const hand = useRef();

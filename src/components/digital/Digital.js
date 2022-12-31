@@ -1,10 +1,10 @@
 import {Input} from "../input/Input.js";
-import './digital-clock.scss';
+import './digital.scss';
 import {useState} from "react";
 import {decode,normalize} from "../../utilities.js";
 import {useTheme} from "../../ThemeContext.js";
 
-export default function DigitalClock( props ) {
+export default function Digital(props ) {
 
     const [ colors ] = useTheme();
     const [ msg,setMsg ] = useState('');

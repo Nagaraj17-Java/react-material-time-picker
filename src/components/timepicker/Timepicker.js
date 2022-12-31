@@ -3,8 +3,8 @@ import './timepicker.scss'
 import {Modal} from "../modal/Modal.js";
 import {ReactComponent as ClockIcon} from "./clock.svg";
 import {ReactComponent as KeyBoardIcon} from "./keyboard.svg";
-import DigitalClock from "../digital-clock/Digital-clock.js";
-import AnalogClock from "../analog-clock/Analog-clock.js";
+import Digital from "../digital/Digital.js";
+import Analog from "../analog/Analog.js";
 import {ThemeProvider, useTheme} from "../../ThemeContext.js";
 import Button from "../button/Button.js";
 import {decode} from "../../utilities.js";
@@ -59,19 +59,19 @@ function ActualTimePicker( props ) {
                         <span className='title labels'>
                             { props.title || 'Enter time' }
                         </span>
-                        <DigitalClock mode={ mode }
-                                      time={ time }
-                                      onChange={ setTime }
-                                      setMode={ setMode }
-                                      dayMode={ dayMode }
-                                      setDayMode={ setDayMode }
+                        <Digital mode={ mode }
+                                 time={ time }
+                                 onChange={ setTime }
+                                 setMode={ setMode }
+                                 dayMode={ dayMode }
+                                 setDayMode={ setDayMode }
                         />
                         { clockDisplay === true
-                            ? <AnalogClock  time={ time }
-                                            dayMode={ dayMode }
-                                            onChange={ setTime }
-                                            mode={ mode }
-                                            width={ props.width }
+                            ? <Analog time={ time }
+                                      dayMode={ dayMode }
+                                      onChange={ setTime }
+                                      mode={ mode }
+                                      width={ props.width }
                             />
                             : ''
                         }
