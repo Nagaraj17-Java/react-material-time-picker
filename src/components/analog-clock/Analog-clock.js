@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useRef, useState} from "react";
+import React, {useEffect, useMemo, useRef, useState,useCallback} from "react";
 import {Clock} from "./Clock.js";
 import {decode,normalize} from "../../utilities.js";
 import"./analog-clock.scss"
@@ -27,7 +27,7 @@ export default function AnalogClock(props) {
     const setPointer = props.mode === 'hours' ? setHoursPointerDigit : setMinutesPointerDigit;
     let clock = props.mode === 'hours' ? hoursClockFace : minutesClockFace;
 
-    const angelToPos= React.useCallback( radian =>{
+    const angelToPos= useCallback( radian =>{
 
         return {
             x: Math.round( Math.cos( radian )* radius),
@@ -35,7 +35,7 @@ export default function AnalogClock(props) {
         }
     },[radius])
 
-    const relocatePointerByAngel=React.useCallback( (angel,pointPlacement=null,value=null) => {
+    const relocatePointerByAngel=useCallback( (angel,pointPlacement=null,value=null) => {
 
         const degree = radToDegree( angel );
         if( pointPlacement === null ) pointPlacement = angelToPos( angel,radius );
@@ -49,7 +49,7 @@ export default function AnalogClock(props) {
         hand.current.style.transform = "rotate("+degree+"deg)"
     },[angelToPos,pointer,props.mode,radius])
 
-    const relocatePointerByIndex = React.useCallback( idx =>{
+    const relocatePointerByIndex = useCallback( idx =>{
 
         if( digits.length === 0) return;
         let point = digits[ idx ].placement;
@@ -57,7 +57,7 @@ export default function AnalogClock(props) {
         relocatePointerByAngel( rad,point,idx )
     },[clock,digits,relocatePointerByAngel])
 
-    const shortestPath= React.useCallback( (start,dest) => {
+    const shortestPath= useCallback( (start,dest) => {
         let path;
         let difference = dest - start;
         let distance;
@@ -77,7 +77,7 @@ export default function AnalogClock(props) {
         return path;
     },[props.mode,clock])
 
-    const handleAnimatedRelocation = React.useCallback( destIdx =>{
+    const handleAnimatedRelocation = useCallback( destIdx =>{
 
         const start = props.mode === 'hours' ? pointer%12 : pointer;
         const path = shortestPath( start , destIdx );
@@ -101,7 +101,7 @@ export default function AnalogClock(props) {
     },[pointer,props.mode,relocatePointerByIndex,setPointer,shortestPath])
 
 
-    const drawClock = React.useCallback( (radius,offset)=> {
+    const drawClock = useCallback( (radius,offset)=> {
 
         hoursClockFace.draw( radius , 12);
         minutesClockFace.draw( radius , 60);
@@ -203,7 +203,7 @@ export default function AnalogClock(props) {
         )
     }
 
-    const getGlobalTime=React.useCallback( mode =>{
+    const getGlobalTime=useCallback( mode =>{
 
         const time = decode( props.time );
         return mode === 'hours'
