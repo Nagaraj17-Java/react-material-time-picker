@@ -27,7 +27,8 @@ export default function Digital(props ) {
 
             if ( inputNumericValue > maxHour ) {
 
-                setMsg(`Hours has to be less than ${ dayMode === 'pm' ? 24 : 12 } in ${ dayMode.toUpperCase() } mode.`)
+                setMsg(`Invalid input: "Hours" is not allowed to be greater than ${ maxHour+1 } in  ${ dayMode.toUpperCase() } mode.`)
+                // setMsg(`Hours has to be less than ${ dayMode === 'pm' ? 24 : 12 } in ${ dayMode.toUpperCase() } mode.`)
                 setInpHoursError(true);
             }
 
@@ -39,7 +40,7 @@ export default function Digital(props ) {
             const maxMinutes = 59;
             if (inputNumericValue > maxMinutes) {
 
-                setMsg('Minutes cant be greater than 60!')
+                setMsg('Invalid input: "Minutes" is not allowed to be greater than 60.')
                 setInpMinutesError(true);
             }
 
