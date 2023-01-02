@@ -124,6 +124,8 @@ export default function Digital(props ) {
                 </div>
             </div>
         </div>
-    <div className='msg'>{ msg }</div>
+    <div className='msg' style={{ color:colors.error }}>
+        { msg }
+    </div>
     </>)
 }
