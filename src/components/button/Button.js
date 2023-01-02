@@ -1,6 +1,6 @@
 import './button.scss'
 import {useTheme} from "../../ThemeContext.js";
-import {useRef, useState} from "react";
+import { useRef, useState} from "react";
 import {hexToRGB} from '../../utilities.js'
 
 export default function Button(props) {

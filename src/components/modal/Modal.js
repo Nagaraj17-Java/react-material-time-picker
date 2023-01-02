@@ -1,5 +1,6 @@
 import './modal.scss'
 import {useTheme} from "../../ThemeContext.js";
+import React from "react";
 
 function Modal( props ) {
     const [colors]=useTheme();

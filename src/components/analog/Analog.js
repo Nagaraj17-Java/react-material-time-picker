@@ -3,7 +3,6 @@ import {Clock} from "./Clock.js";
 import {decode,normalize} from "../../utilities.js";
 import"./analog.scss"
 import {useTheme} from "../../ThemeContext.js";
-// import {angelToPos,getAngel,radToDegree} from "./analogClockHandy.js";
 
 export default function Analog(props) {
 
