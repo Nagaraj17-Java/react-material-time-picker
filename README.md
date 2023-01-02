@@ -40,30 +40,26 @@ const App = () => {
       <button onClick={()=>setTheme(theme === 'dark' ? 'light': 'dark')}>
         { theme }
       </button>
-      { show === true
-              ? <TimePicker
-                      theme={ theme }
-                      title={ 'Time' }
-                      zIndex={ 50 }
-                      width={ 400 }
-                      onChange={ checkValidity }
-                      show={ ()=>setShow(true) }
-                      defaultValue={ '1246' }
-                      hide={ ()=>setShow(false) }
-                      buttons={[
-                        {
-                          label:'Cancel',
-                          onClick: ()=>setShow(false)
-                        },
-                        {
-                          label:'Save',
-                          onClick: ()=>alert('Saved!')
-                        }
-                      ]}
-              />
-              : ''
-      }
-  
+        <TimePicker
+              theme={ theme }
+              title={ 'Time' }
+              zIndex={ 50 }
+              width={ 400 }
+              onChange={ checkValidity }
+              show={ show }
+              defaultValue={ '1246' }
+              hide={ ()=>setShow(false) }
+              buttons={[
+                {
+                  label:'Cancel',
+                  onClick: ()=>setShow(false)
+                },
+                {
+                  label:'Save',
+                  onClick: ()=>alert('Saved!')
+                }
+              ]}
+      />
     </>)
 };
 ```
@@ -75,7 +71,7 @@ TimePicker has the following props:
 
 - `title`: The title that will be displayed at the top of the TimePicker modal.
 - `hide`: A function for hiding the modal from the page
-- `show`: A function for showing the modal from the page
+- `show`: A boolean value for showing the modal
 - `buttons`: An array including One or more buttons that will be placed at the bottom of the modal. These button objects must include function which will trigger after clicking on the button named 'onClick',and the label of the button named 'label'.
 - `onChange`: Is a function which takes the updated time value in every changes happening.
 - `defaultValue`: Is an optional value of time at the beginning in form of a 4 characters string.
