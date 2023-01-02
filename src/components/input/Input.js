@@ -21,18 +21,6 @@ const Input = (props) => {
     };
 
 
-    // useEffect(()=>{
-    //     if(!!props.active) {
-    //         if(props.error){
-    //             setCurrentStyle(styles.warning);
-    //         }else{
-    //             setCurrentStyle(styles.focused)
-    //         }
-    //     }else{
-    //         setCurrentStyle(styles.default);
-    //     }
-    // },[props.active, props.error,props.warning,setCurrentStyle, styles])
-
     const currentStyle = props.active ? (props.error ? styles.warning : styles.focused) : styles.default;
 
     return (
