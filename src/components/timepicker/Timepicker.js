@@ -50,7 +50,9 @@ function ActualTimePicker( props ) {
     },[ props.defaultValue,setDayMode ])
 
     return (
-            <div className='time-picker-component' >
+            <div className='time-picker-component'
+                style={{top:(props.top || '10%')}}
+            >
                     <Modal show={ props.show }
                            hide={ props.hide }
                            zIndex ={ props.zIndex || 1002 }
