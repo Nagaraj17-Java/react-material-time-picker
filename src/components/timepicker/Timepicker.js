@@ -51,7 +51,7 @@ function ActualTimePicker( props ) {
 
     return (
             <div className='time-picker-component'
-                style={{top:(props.top || '10%')}}
+                style={{ top:(props.top || '10%') }}
             >
                     <Modal show={ props.show }
                            hide={ props.hide }
