@@ -1,9 +1,10 @@
-@import "./src/App";
+//@import "./src/App";
+@import '../../../src/App';
 .clock {
 
   margin:2em auto;
-  max-width: 450px;
-  min-width: 350px;
+  //max-width: 450px;
+  //min-width: 350px;
 
   &:before{
     content: '';

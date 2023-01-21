@@ -73,7 +73,7 @@ function ActualTimePicker( props ) {
                                       dayMode={ dayMode }
                                       onChange={ setTime }
                                       mode={ mode }
-                                      width={ props.width }
+                                      clockWidth={ props.clockWidth || '' }
                             />
                             : ''
                         }

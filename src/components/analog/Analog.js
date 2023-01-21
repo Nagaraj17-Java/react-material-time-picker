@@ -252,7 +252,7 @@ export default function Analog(props) {
              style={{
                  background:colors.surfaceVariant ,
                  color: colors.onSurfaceVariant,
-                 width: props.width
+                 width: props.clockWidth+'px'
                 }}
         >
             <div className='center'

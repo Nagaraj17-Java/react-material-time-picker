@@ -1,6 +1,6 @@
 {
   "name": "react-material-time-picker",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "description": "TimePicker is a user interface component that allows the user to easily select a specific time. It provides an analog clock interface that is easy to use and intuitive. TimePicker can be easily integrated into other user interface components, making it a perfect choice for applications that require the user to select a time.",
   "main": "dist/index.js",
   "repository": {
