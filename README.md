@@ -80,7 +80,7 @@ TimePicker has the following props:
 - `theme` : Which can have two values of 'light' or 'dark'. This variable has set 'light' by default.
 - `zIndex`: Is an optional variable for z-index of the modal which by default is on '1001'
 - `width`: Is an optional variable for the width size of the modal
-- `clockWidth`: Is an optional variable for the diameter of the clockFace
+- `clockWidth`: Is an optional variable for the diameter of the clockFace, needs to be at least 100. 
 - `top`: Is an optional variable for the distance from the top, It also can be a percentage.
 - `colors`: An optional variable in form of an object including two possible theme light and dark, which by default is on 'light' mode
 
