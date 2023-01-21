@@ -43,9 +43,9 @@ const App = () => {
         <TimePicker
               theme={ theme }
               title={ 'Time' }
-              zIndex={ '50' }
-              width={ '400' }
-              clockWidth={ '300' }
+              zIndex={ 50 }
+              width={ 400 }
+              clockWidth={ 300 }
               top={ 10px }
               onChange={ checkValidity }
               show={ show }
