@@ -4,6 +4,14 @@ import React from "react";
 
 function Modal( props ) {
     const [colors]=useTheme();
+    const internalStyle = {
+        background : colors.surface3,
+        zIndex:`${ props.zIndex+1 || 1002}`,
+        color : colors.onSurface,
+        width: props.width+'px',
+        top:(props.top || '10%'),
+        fontFamily: 'Roboto,-apple-system, Ubuntu, sans-serif',
+    }
     return (
         props.show ? (
             <div className='modal-component'>
@@ -15,13 +23,8 @@ function Modal( props ) {
                     }}
 
                 />
-                <div
-                    id='modal-container'
-                    style={{ background : colors.surface3,
-                             zIndex:`${ props.zIndex+1 || 1002}`,
-                             color : colors.onSurface,
-                             width:props.width+'px'
-                    }}
+                <div id='modal-container'
+                     style={{...internalStyle,...props.style}}
                 >
                     { props.children }
 

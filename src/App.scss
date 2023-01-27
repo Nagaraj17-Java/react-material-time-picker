@@ -1,5 +1,5 @@
 
-$font-family : Roboto,-apple-system, Ubuntu, arial;
+$font-family : inherit;
 @mixin font-body-medium{
   font-family: $font-family;
   font-size: 0.875em;

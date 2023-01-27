@@ -19,19 +19,15 @@ function ActualTimePicker( props ) {
     const [ dayMode,setDayMode ]= useState('am');
     const [ colors , setTheme, setColors ] = useTheme()
 
+    useEffect(()=>{
+        if( props.theme) setTheme( props.theme );
+    },[ setTheme,props.theme ])
 
     useEffect(()=>{
         if( typeof props.colors !== "undefined"){
             setColors (props.colors)
-            setTheme( props.theme || 'light' );
         }
-
-    },[ props.colors,setTheme,setColors,props.theme ])
-
-    useEffect(()=>{
-        if( typeof props.theme !== "undefined") setTheme( props.theme )
-
-    },[ props.theme,setTheme ])
+    },[ props.colors,setColors ])
 
     useEffect(()=>{
         if( typeof time !== 'undefined') {
@@ -51,12 +47,14 @@ function ActualTimePicker( props ) {
 
     return (
             <div className='time-picker-component'
-                style={{ top:(props.top || '10%') }}
+                style={{...(props.style || {})}}
             >
                     <Modal show={ props.show }
                            hide={ props.hide }
                            zIndex ={ props.zIndex || 1002 }
+                           style={ props.style }
                            width={ props.width }
+                           top={ props.top }
                     >
                         <span className='title labels'>
                             { props.title || 'Enter time' }

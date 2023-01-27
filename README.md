@@ -18,6 +18,7 @@ To install TimePicker, run the following command:
 `npm install react-material-time-picker`
 
 ## Interactive Demo
+<img src="./imgs/demo.png" width="200" />
 
 To see TimePicker in action, you can use the following link: https://mz39tu.csb.app/.
 
@@ -43,10 +44,9 @@ const App = () => {
         <TimePicker
               theme={ theme }
               title={ 'Time' }
-              zIndex={ 50 }
-              width={ 400 }
               clockWidth={ 300 }
-              top={ 10px }
+              zIndex={ 1003 }
+              style={{ width:'300px',top:'0' }}
               onChange={ checkValidity }
               show={ show }
               defaultValue={ '1246' }
@@ -61,6 +61,41 @@ const App = () => {
                   onClick: ()=>alert('Saved!')
                 }
               ]}
+              colors={{
+                    light:{
+                        primary : '#6750A4',
+                        surfaceVariant: 'rgba(231, 224, 236, 1)',
+                        onSurfaceVariant: '#49454F',
+                        onSurface: '#1C1B1F',
+                        outline: '#79747E',
+                        scrim:'rgb(0,0,0,0.25)',
+                        tertiaryContainer:'#FFD8E4',
+                        onPrimary: '#ffffff',
+                        errorContainer: '#F9DEDC',
+                        primaryContainer: '#EADDFF',
+                        onPrimaryContainer: '#21005D',
+                        error : '#B3261E',
+                        surface3: `linear-gradient(0deg, #FFFBFE, #FFFBFE),` +
+                            `linear-gradient(0deg, rgba(103, 80, 164, 0.11), rgba(103, 80, 164, 0.11))`
+            
+                    },
+                    dark: {
+                        primary : '#D0BCFF',
+                        surfaceVariant: '#49454F',
+                        onSurfaceVariant: '#CAC4D0',
+                        onSurface: '#E6E1E5',
+                        outline: '#79747E',
+                        scrim:'rgb(0,0,0,0.25)',
+                        tertiaryContainer:'#633B48',
+                        onPrimary: '#381E72',
+                        errorContainer: '#8C1D18',
+                        primaryContainer: '#4F378B',
+                        onPrimaryContainer: '#EADDFF',
+                        error : '#F2B8B5',
+                        surface3: 'linear-gradient(0deg, #1C1B1F, #1C1B1F),' +
+                            '    linear-gradient(0deg, rgba(208, 188, 255, 0.11), rgba(208, 188, 255, 0.11))'
+                    }
+                }}
       />
     </>)
 };
@@ -78,11 +113,10 @@ TimePicker has the following props:
 - `onChange`: Is a function which takes the updated time value in every changes happening.
 - `defaultValue`: Is an optional value of time at the beginning in form of a 4 characters string.
 - `theme` : Which can have two values of 'light' or 'dark'. This variable has set 'light' by default.
-- `zIndex`: Is an optional variable for z-index of the modal which by default is on '1001'
-- `width`: Is an optional variable for the width size of the modal
-- `clockWidth`: Is an optional variable for the diameter of the clockFace, needs to be at least 100. 
-- `top`: Is an optional variable for the distance from the top, It also can be a percentage.
-- `colors`: An optional variable in form of an object including two possible theme light and dark, which by default is on 'light' mode
+- `zIndex`: Is an optional value of the modal z-index, and by default is 1001
+- `style`: Is an optional variable for styling the component. Can be used for changing font-family and etc.
+- `clockWidth`: Is an optional variable for the diameter of the clockFace, needs to be at least 100px. 
+- `colors`: An optional variable in form of an object including two possible themes light and dark
 
 ### `Colors` Variables
 
@@ -92,7 +126,7 @@ Each of the objects in the light and dark modes must include the following varia
 - `onSurfaceVariant`: a CSS color value that represents the color of text or other elements on top of the surface variant color
 - `surface`: a CSS color value that represents the surface color of the theme
 - `onSurface`: a CSS color value that represents the color of text or other elements on top of the surface color
-- `outline`: a CSS color value that represents the outline color of the theme
+- `outline`: a CSS color value that represents borders color of the theme
 - `scrim`: a CSS color value that represents the scrim color of the theme
 - `tertiaryContainer`: a CSS color value that represents the tertiary container color of the theme
 - `onPrimary`: a CSS color value that represents the color of text or other elements on top of the primary color
@@ -100,6 +134,6 @@ Each of the objects in the light and dark modes must include the following varia
 - `primaryContainer`: a CSS color value that represents the primary container color of the theme
 - `onPrimaryContainer`: a CSS color value that represents the color of text or other elements on top of the primary container color
 - `error`: a CSS color value that represents the error color of the theme
-- `surface3`: a CSS color value that represents the surface3 color of the theme, which is a linear gradient combining the surface color and a semi-transparent variant of the primary color.
+- `surface3`: a CSS color value that represents the background color of the theme
 
 
