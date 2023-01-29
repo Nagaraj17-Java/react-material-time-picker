@@ -37,11 +37,15 @@ function ActualTimePicker( props ) {
     },[ time,props ])
 
     useEffect( ()=>{
-        if( typeof props.defaultValue !== "undefined"){
-            setTime( props.defaultValue )
 
-            if(decode( props.defaultValue ).hour >= 12) setDayMode('pm')
-            else setDayMode('am')
+        if( typeof props.defaultValue !== "undefined" ){
+
+            if( props.defaultValue.length === 4 && Number(props.defaultValue) < '2359'){
+                setTime( props.defaultValue )
+
+                if(decode( props.defaultValue ).hour >= 12) setDayMode('pm')
+                else setDayMode('am')
+            }
         }
     },[ props.defaultValue,setDayMode ])
 
