@@ -1,11 +1,4 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import Home from './view/index.js'
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-      <Home />
-  </React.StrictMode>
-);
-
+import React from "react";
+import TimePicker from "./components/timepicker/Timepicker.js";
+window.React = React;
+export default TimePicker;

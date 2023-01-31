@@ -1,23 +1,24 @@
-//@import './src/App';
 @import '../../../src/App';
-.buttons{
-  width: 100%;
-  .btn{
-    border-radius: 20px;
-    @include font-label-large;
-    position: relative;
-    height: 40px;
-    padding: 0 2em;
+.time-picker-component{
+  .buttons{
+    width: 100%;
+    .btn{
+      border-radius: 20px;
+      @include font-label-large;
+      position: relative;
+      height: 40px;
+      padding: 0 2em;
+
+    }
+    .big{
+      width: 19em !important;
+    }
+    .outlined{
+      box-shadow: none;
+    }
+    .text{
+      border: none;
+    }
 
   }
-  .big{
-    width: 19em !important;
-  }
-  .outlined{
-    box-shadow: none;
-  }
-  .text{
-    border: none;
-  }
-
 }

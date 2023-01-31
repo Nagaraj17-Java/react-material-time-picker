@@ -1,42 +1,42 @@
-//@import "./src/App";
 @import '../../../src/App';
+.time-picker-component{
+  .digital-clock-component{
 
-.digital-clock-component{
-
-  margin-top: 20px;
-  @include font-display-medium;
-  display: grid;
-  align-items: start;
-  grid-auto-flow: column;
-  grid-template-columns: repeat( 4,max-content ) ;
-  grid-gap: 12px;
-
-  .activated {
-
-    outline: none;
-    pointer-events: none;
-  }
-  .inp-deactive{
-    pointer-events: none;
-  }
-  .switch{
-    width: max-content;
-    @include font-title-medium;
+    margin-top: 20px;
+    @include font-display-medium;
     display: grid;
-    grid-auto-flow: row;
-    border-radius: 8px;
-    height: 72px;
-    div{
-      padding: 0 10px;
-      height: 100%;
-      vertical-align: middle;
-      cursor: pointer;
+    align-items: start;
+    grid-auto-flow: column;
+    grid-template-columns: repeat( 4,max-content ) ;
+    grid-gap: 12px;
+
+    .activated {
+
+      outline: none;
+      pointer-events: none;
     }
-    .up{
-      border-radius: 8px 8px 0 0 ;
+    .inp-deactive{
+      pointer-events: none;
     }
-    .down{
-      border-radius: 0 0 8px 8px  ;
+    .switch{
+      width: max-content;
+      @include font-title-medium;
+      display: grid;
+      grid-auto-flow: row;
+      border-radius: 8px;
+      height: 72px;
+      div{
+        padding: 0 10px;
+        height: 100%;
+        vertical-align: middle;
+        cursor: pointer;
+      }
+      .up{
+        border-radius: 8px 8px 0 0 ;
+      }
+      .down{
+        border-radius: 0 0 8px 8px  ;
+      }
     }
   }
 }

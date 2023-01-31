@@ -1,23 +1,24 @@
-//@import './src/App';
 @import '../../../src/App';
-.modal-component {
-  position: absolute;
-  top : 10%;
-  .scrim {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-  #modal-container{
-    position:fixed;
-    border-radius: 28px;
-    left: 50%;
-    width: min(350px);
-    transform: translateX(-50%);
-    padding: 16px 24px;
-    @include font-body-medium;
-    text-align: left;
+.time-picker-component{
+  .modal-component {
+    position: absolute;
+    top : 10%;
+    .scrim {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    #modal-container{
+      position:fixed;
+      border-radius: 28px;
+      left: 50%;
+      width: min(350px);
+      transform: translateX(-50%);
+      padding: 16px 24px;
+      @include font-body-medium;
+      text-align: left;
+    }
   }
 }
