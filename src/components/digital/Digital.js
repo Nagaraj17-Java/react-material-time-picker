@@ -23,7 +23,7 @@ export default function Digital(props ) {
         if( mode === 'hours') {
             setInpHoursError(false)
             const minutesVal = decode( props.time || 0).minute;
-            const maxHour = (dayMode === 'pm' ? 23 : 11);
+            const maxHour = (dayMode === 'pm' ? 24 : 12);
 
             if ( inputNumericValue > maxHour ) {
 
